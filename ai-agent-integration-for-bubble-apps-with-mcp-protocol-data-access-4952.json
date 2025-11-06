@@ -1,0 +1,239 @@
+{
+  "workflow": {
+    "id": "CqlwywHbmlc7eHNT",
+    "meta": {
+      "instanceId": "dce9fe04a7fdbf241de6b7362a58adc4ade77ecf936745b8085d24de3b25eb12",
+      "templateCredsSetupCompleted": true
+    },
+    "name": "Bubble MCP server",
+    "tags": [],
+    "nodes": [
+      {
+        "id": "d4e05c6f-939b-465f-a8f2-36b6eed6e868",
+        "name": "MCP Server Trigger",
+        "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+        "position": [
+          -148,
+          -180
+        ],
+        "webhookId": "db8e6f1e-863d-4889-b56b-f88fad0b24af",
+        "parameters": {
+          "path": "db8e6f1e-863d-4889-b56b-f88fad0b24af"
+        },
+        "typeVersion": 2
+      },
+      {
+        "id": "47b0e90e-c6e0-4e97-9629-f56dce348d5e",
+        "name": "Get Project details",
+        "type": "n8n-nodes-base.bubbleTool",
+        "position": [
+          -180,
+          40
+        ],
+        "parameters": {
+          "objectId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Object_ID&apos;, `Get project details using project unique ID`, &apos;string&apos;) }}",
+          "typeName": "project",
+          "descriptionType": "manual",
+          "toolDescription": "Get project information in our Bubble app"
+        },
+        "credentials": {
+          "bubbleApi": {
+            "id": "1RWR6fgVxAhtiAL2",
+            "name": "Bubble account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "f2c5e7d6-c75c-4271-b60d-36e2454bb77e",
+        "name": "Get user info",
+        "type": "n8n-nodes-base.bubbleTool",
+        "position": [
+          -60,
+          40
+        ],
+        "parameters": {
+          "objectId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Object_ID&apos;, `Get user information using user unique id`, &apos;string&apos;) }}",
+          "typeName": "user",
+          "descriptionType": "manual",
+          "toolDescription": "Get user information in our Bubble app"
+        },
+        "credentials": {
+          "bubbleApi": {
+            "id": "1RWR6fgVxAhtiAL2",
+            "name": "Bubble account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "65361b3d-efe3-44da-ab8a-e23fce5ef6e5",
+        "name": "Get Plugin details",
+        "type": "n8n-nodes-base.bubbleTool",
+        "position": [
+          60,
+          40
+        ],
+        "parameters": {
+          "options": {
+            "filters": {
+              "filter": [
+                {
+                  "key": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;filter0_Key&apos;, ``, &apos;string&apos;) }}",
+                  "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;filter0_Value&apos;, ``, &apos;string&apos;) }}",
+                  "constraint_type": "text contains"
+                }
+              ]
+            }
+          },
+          "typeName": "plugin",
+          "operation": "getAll",
+          "descriptionType": "manual",
+          "toolDescription": "Get plugins information in our Bubble app"
+        },
+        "credentials": {
+          "bubbleApi": {
+            "id": "1RWR6fgVxAhtiAL2",
+            "name": "Bubble account"
+          }
+        },
+        "typeVersion": 1
+      }
+    ],
+    "active": true,
+    "pinData": {},
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "versionId": "88e83d75-e334-4bb1-a2ca-3043701353eb",
+    "connections": {
+      "Get user info": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get Plugin details": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get Project details": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "evaluation": {
+    "overall_score": 45.0,
+    "quality_tier": "bronze",
+    "confidence": 0.8,
+    "dimensions": {
+      "architecture": 70.0,
+      "error_handling": 20.0,
+      "security": 50.0,
+      "performance": 60.0,
+      "maintainability": 75.0,
+      "best_practices": 55.0,
+      "scalability": 40.0,
+      "innovation": 30.0
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after each Bubble tool to catch API failures.",
+        "node_id": "Get Project details",
+        "fix_details": {
+          "action": "Insert 'Error Trigger' node connected to output of Bubble tool, with retry logic."
+        }
+      },
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after each Bubble tool to catch API failures.",
+        "node_id": "Get user info",
+        "fix_details": {
+          "action": "Insert 'Error Trigger' node connected to output of Bubble tool, with retry logic."
+        }
+      },
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after each Bubble tool to catch API failures.",
+        "node_id": "Get Plugin details",
+        "fix_details": {
+          "action": "Insert 'Error Trigger' node connected to output of Bubble tool, with retry logic."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Implement caching for Bubble API responses to reduce redundant calls.",
+        "node_id": "Get Project details",
+        "fix_details": {
+          "action": "Add 'Cache' node before Bubble tool to store and retrieve data."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "medium",
+        "description": "Add input validation for parameters passed to Bubble tools.",
+        "node_id": "MCP Server Trigger",
+        "fix_details": {
+          "action": "Insert 'Function' node to validate inputs before passing to downstream nodes."
+        }
+      }
+    ],
+    "semantic_intent": {},
+    "evaluation_cost": 0.0088476,
+    "evaluation_time": 12.558410167694092,
+    "evaluator": "grok-code-fast-1"
+  },
+  "category": "AI",
+  "category_metadata": {
+    "primary_category": "AI",
+    "confidence": 0.4444444444444444,
+    "all_categories": [
+      {
+        "category": "AI",
+        "confidence": 0.4444444444444444
+      },
+      {
+        "category": "Customer Support",
+        "confidence": 0.27777777777777773
+      },
+      {
+        "category": "Content Creation",
+        "confidence": 0.27777777777777773
+      }
+    ],
+    "detection_sources": {
+      "nodes": "",
+      "architecture": "vertical",
+      "pattern": "AI(0.80), Customer Support(0.50), Content Creation(0.50)",
+      "nlp": ""
+    },
+    "architecture_type": "vertical",
+    "category_quality_score": 53.333333333333336
+  },
+  "source_path": "C:\\Users\\DELL\\n8n-workflow-scraper\\data\\workflows\\staging_unique\\AI\\ai-agent-integration-for-bubble-apps-with-mcp-protocol-data-access-4952.json"
+}

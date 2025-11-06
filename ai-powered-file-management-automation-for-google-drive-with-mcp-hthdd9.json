@@ -1,0 +1,480 @@
+{
+  "workflow": {
+    "id": "jmF1lTCcJ7Sz44XB",
+    "meta": {
+      "instanceId": "2000c64071c20843606b95c63795bb0797c41036047055a6586498e855b96efc",
+      "templateCredsSetupCompleted": true
+    },
+    "name": "Google Drive MCP",
+    "tags": [],
+    "nodes": [
+      {
+        "id": "0e364a8b-0c13-44d6-9b97-3b979450f30d",
+        "name": "MCP Server Trigger",
+        "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+        "notes": "Entry point for the workflow - triggers when MCP server receives a request",
+        "position": [
+          1400,
+          420
+        ],
+        "webhookId": "ab3b0e89-c55b-4d86-a9a7-73b7ebdb99da",
+        "parameters": {
+          "path": "ab3b0e89-c55b-4d86-a9a7-73b7ebdb99da"
+        },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "f3bd2712-a9e9-4058-be2e-b958cecca7f4",
+        "name": "Create Backup",
+        "type": "n8n-nodes-base.googleDriveTool",
+        "notes": "Creates timestamped backup copy in dedicated Backups folder before any modifications",
+        "position": [
+          1060,
+          420
+        ],
+        "parameters": {
+          "name": "={{ $json.name }}_backup_{{ $now.format('YYYY-MM-DD_HH-mm-ss') }}",
+          "fileId": {
+            "__rl": true,
+            "mode": "list",
+            "value": ""
+          },
+          "options": {},
+          "operation": "copy"
+        },
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "6hzrQTMU9Jx22uMs",
+            "name": "Google Drive account 3"
+          }
+        },
+        "typeVersion": 3
+      },
+      {
+        "id": "0ad52d69-2582-489e-b7a7-1691227eb23d",
+        "name": "Move to Processed",
+        "type": "n8n-nodes-base.googleDriveTool",
+        "notes": "Moves processed files to organized folder structure",
+        "position": [
+          1060,
+          1140
+        ],
+        "parameters": {
+          "fileId": {
+            "__rl": true,
+            "mode": "list",
+            "value": ""
+          },
+          "driveId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "My Drive"
+          },
+          "folderId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "processed_folder_id",
+            "cachedResultName": "Processed"
+          },
+          "operation": "move"
+        },
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "6hzrQTMU9Jx22uMs",
+            "name": "Google Drive account 3"
+          }
+        },
+        "typeVersion": 3
+      },
+      {
+        "id": "505f47e5-9351-4737-98bf-4b9b2c4461d1",
+        "name": "Archive Old Files",
+        "type": "n8n-nodes-base.googleDriveTool",
+        "notes": "Archives files older than specified threshold to maintain clean workspace",
+        "position": [
+          1060,
+          900
+        ],
+        "parameters": {
+          "fileId": {
+            "__rl": true,
+            "mode": "list",
+            "value": ""
+          },
+          "driveId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "My Drive"
+          },
+          "folderId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "archive_folder_id",
+            "cachedResultName": "Archive"
+          },
+          "operation": "move"
+        },
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "6hzrQTMU9Jx22uMs",
+            "name": "Google Drive account 3"
+          }
+        },
+        "typeVersion": 3
+      },
+      {
+        "id": "79730ea8-cbe3-4edb-a0cf-b1519d625e8a",
+        "name": "Workflow Overview",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          600,
+          180
+        ],
+        "parameters": {
+          "color": 4,
+          "width": 350,
+          "height": 520,
+          "content": "## Google Drive File Management Workflow\n\nThis workflow provides comprehensive file management capabilities for Google Drive:\n\n### Key Features:\n- **Smart Processing**: Downloads with format conversion\n- **Safety First**: Creates backups before modifications\n- **Organization**: Moves files to appropriate folders\n- **Audit Trail**: Logs all activities\n\n### Workflow Path:\n1. MCP Trigger receives request\n2. List files or download specific file\n3. Create backup if modifying\n4. Process based on file type/size\n5. Move to organized folders\n6. Log all activities"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "aae3f651-0334-4856-83fa-fb9d038ec504",
+        "name": "Input Parameters",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          640,
+          760
+        ],
+        "parameters": {
+          "color": 3,
+          "width": 300,
+          "height": 480,
+          "content": "=### Input Parameters\n\n**MCP Trigger accepts:**\n- `action`:  download, move, archive\n- `fileId`: specific file identifier\n- `folderPath`: target folder path\n- `filters`: file type, size, date filters\n\n**Example payload:**\n```json\n{\n  \"action\": \"download\",\n  \"fileId\": \"1a2b3c4d5e6f\",\n  \"convertFormat\": \"pdf\"\n}\n```"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "36deeaac-5bfb-4040-b46d-1ceb8251f6c5",
+        "name": "Safety & Best Practices",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1800,
+          180
+        ],
+        "parameters": {
+          "color": 6,
+          "width": 380,
+          "height": 380,
+          "content": "## Error Handling & Safety\n\n**Built-in Safeguards:**\n- Backup creation before modifications\n- File size and type validation\n- Detailed error logging\n- Rollback capabilities\n\n**Best Practices:**\n- Test with non-critical files first\n- Monitor processing logs regularly\n- Set up folder permissions properly\n- Use version control for important docs"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "25c70e4f-0f4b-4c34-9a62-9ff6840d3289",
+        "name": "Performance Tips",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1820,
+          620
+        ],
+        "parameters": {
+          "color": 5,
+          "width": 300,
+          "height": 280,
+          "content": "## Performance Optimization\n\n**Recommendations:**\n- Use batch operations for multiple files\n- Implement rate limiting for API calls\n- Cache frequently accessed file metadata\n- Set up webhooks for real-time updates\n\n**Monitoring:**\n- Track API quota usage\n- Monitor workflow execution time\n- Set up alerts for failures\n- Regular cleanup of old logs"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "43feec90-091a-4614-b741-0544b5d12342",
+        "name": "Google Drive",
+        "type": "n8n-nodes-base.googleDriveTool",
+        "position": [
+          1280,
+          1120
+        ],
+        "parameters": {
+          "fileId": {
+            "__rl": true,
+            "mode": "list",
+            "value": ""
+          },
+          "options": {},
+          "operation": "download"
+        },
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "6hzrQTMU9Jx22uMs",
+            "name": "Google Drive account 3"
+          }
+        },
+        "typeVersion": 3
+      },
+      {
+        "id": "25967a87-b6d6-4abf-be03-7a360d79cb10",
+        "name": "Drive upload",
+        "type": "n8n-nodes-base.googleDriveTool",
+        "position": [
+          1060,
+          660
+        ],
+        "parameters": {
+          "driveId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "My Drive"
+          },
+          "options": {},
+          "folderId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "root",
+            "cachedResultName": "/ (Root folder)"
+          }
+        },
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "6hzrQTMU9Jx22uMs",
+            "name": "Google Drive account 3"
+          }
+        },
+        "typeVersion": 3
+      }
+    ],
+    "active": false,
+    "pinData": {},
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "versionId": "9eb46725-afe3-4411-8b28-7c9b39ad8b77",
+    "connections": {
+      "Drive upload": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Drive": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create Backup": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Archive Old Files": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Move to Processed": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "original_file": "C:\\Users\\DELL\\n8n-workflow-scraper\\scraped-workflows\\workflows\\AI\\ai-powered-file-management-automation-for-google-drive-with-mcp-hthdd9.json",
+    "category": "AI",
+    "category_confidence": 0.53125,
+    "quality_score": 45.0,
+    "quality_tier": "bronze",
+    "evaluated_at": "2025-10-02T02:28:39.236197",
+    "evaluator": "grok-code-fast-1",
+    "cost": 0.7792113999999998,
+    "nodes_count": 10,
+    "batch": 1
+  },
+  "evaluation": {
+    "overall_score": 45.0,
+    "confidence": 0.85,
+    "quality_tier": "bronze",
+    "dimensions": {
+      "architecture": {
+        "score": 60,
+        "issues": [
+          "Vertical architecture is appropriate for sequential file operations, but connections may not follow best practices without intelligence data.",
+          "No branching or parallel processing, which could limit efficiency for multiple file operations."
+        ],
+        "strengths": [
+          "Logical flow from trigger to file operations and archiving.",
+          "Sticky notes provide some structural guidance."
+        ],
+        "recommendations": [
+          "Consider adding conditional logic for different file types.",
+          "Ensure connections are error-proof by adding validation nodes."
+        ]
+      },
+      "error_handling": {
+        "score": 20,
+        "issues": [
+          "No error handling nodes present, such as try-catch or error trigger nodes.",
+          "No retry mechanisms for failed Google Drive operations.",
+          "Potential for silent failures in file uploads or moves."
+        ],
+        "strengths": [
+          "Sticky note on Safety & Best Practices may imply awareness."
+        ],
+        "recommendations": [
+          "Add Error Trigger nodes after each Google Drive operation.",
+          "Implement retry logic with exponential backoff for API calls."
+        ]
+      },
+      "security": {
+        "score": 40,
+        "issues": [
+          "Credentials for Google Drive not detailed; potential exposure if not properly managed.",
+          "No input validation mentioned, risking injection or unauthorized access.",
+          "Sticky note on Safety suggests awareness, but no implementation."
+        ],
+        "strengths": [
+          "Use of Google Drive tools implies OAuth or API key handling."
+        ],
+        "recommendations": [
+          "Ensure credentials are stored securely in N8N.",
+          "Add input validation nodes for file paths and parameters."
+        ]
+      },
+      "performance": {
+        "score": 30,
+        "issues": [
+          "No caching or batching for Google Drive operations, which can be slow.",
+          "Sequential processing may lead to bottlenecks.",
+          "No performance tips applied despite sticky note."
+        ],
+        "strengths": [
+          "Vertical flow minimizes concurrent load."
+        ],
+        "recommendations": [
+          "Use batch operations for multiple files.",
+          "Implement caching for frequently accessed data."
+        ]
+      },
+      "maintainability": {
+        "score": 70,
+        "issues": [
+          "Node names are somewhat descriptive, but could be more specific.",
+          "Parameters not detailed, assuming defaults."
+        ],
+        "strengths": [
+          "Sticky notes for overview, parameters, and tips enhance readability.",
+          "Clear purpose implied by node names."
+        ],
+        "recommendations": [
+          "Rename nodes to be more precise, e.g., 'Create Backup of File X'.",
+          "Document parameters in sticky notes or comments."
+        ]
+      },
+      "best_practices": {
+        "score": 50,
+        "issues": [
+          "No specific best practices data, but sticky notes suggest some adherence.",
+          "Common mistakes like missing error handling are present.",
+          "No optimization tips applied."
+        ],
+        "strengths": [
+          "Sticky notes indicate awareness of best practices.",
+          "Use of dedicated Google Drive tools."
+        ],
+        "recommendations": [
+          "Follow N8N best practices for Google Drive nodes, such as limiting API calls.",
+          "Avoid hardcoding paths; use variables."
+        ]
+      },
+      "scalability": {
+        "score": 35,
+        "issues": [
+          "Google Drive API rate limits may cause issues under load.",
+          "No parallel processing for multiple files.",
+          "Vertical architecture limits concurrent operations."
+        ],
+        "strengths": [
+          "Simple structure scales for small loads."
+        ],
+        "recommendations": [
+          "Add parallel branches for independent operations.",
+          "Monitor API quotas and implement throttling."
+        ]
+      },
+      "innovation": {
+        "score": 25,
+        "issues": [
+          "Workflow is standard file management; no innovative features.",
+          "No use of advanced N8N features like AI integrations.",
+          "Relies on basic Google Drive tools."
+        ],
+        "strengths": [
+          "Integration with MCP Server Trigger could be novel, but purpose unclear."
+        ],
+        "recommendations": [
+          "Incorporate AI for intelligent file categorization.",
+          "Explore custom nodes for unique operations."
+        ]
+      }
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after Google Drive operations to catch failures.",
+        "node_id": "Create Backup",
+        "fix_details": {
+          "action": "Insert Error Trigger node after 'Create Backup' with retry logic."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "critical",
+        "description": "Validate inputs to prevent unauthorized file access.",
+        "node_id": "MCP Server Trigger",
+        "fix_details": {
+          "action": "Add a validation node to check input parameters."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Batch file operations to reduce API calls.",
+        "node_id": "Drive upload",
+        "fix_details": {
+          "action": "Configure Google Drive tool for batch uploads."
+        }
+      }
+    ],
+    "migration_recommendation": "improve_then_migrate",
+    "estimated_improvement_time": "4-6 hours"
+  }
+}

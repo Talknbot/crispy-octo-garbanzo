@@ -1,0 +1,517 @@
+{
+  "workflow": {
+    "meta": {
+      "instanceId": "33738330930e3881dd5571eca013f36ddf8aab20e4ea5c1f2ebaf4a2b4668ac6",
+      "templateCredsSetupCompleted": true
+    },
+    "nodes": [
+      {
+        "id": "62854eee-81a6-4fe0-93c0-8512192edbf2",
+        "name": "MCP Server Trigger",
+        "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+        "position": [
+          -224,
+          -80
+        ],
+        "webhookId": "fb491c53-d74d-4999-a117-d938b643dc15",
+        "parameters": {
+          "path": "airtop"
+        },
+        "typeVersion": 2
+      },
+      {
+        "id": "a4a3e250-9439-4d03-a716-61d086ae41d7",
+        "name": "Create a session in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          -352,
+          176
+        ],
+        "parameters": {
+          "profileName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Profile_Name&apos;, `nome do perfil de navegacao no airtop`, &apos;string&apos;) }}",
+          "timeoutMinutes": "=10",
+          "additionalFields": {},
+          "saveProfileOnTermination": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Save_Profile&apos;, ``, &apos;boolean&apos;) }}"
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "ecf44f10-acac-4eab-84b2-08cae6857348",
+        "name": "Terminate a session in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          -176,
+          192
+        ],
+        "parameters": {
+          "operation": "terminate",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, `id da sesao criada `, &apos;string&apos;) }}"
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "c2d54596-b120-4126-9dd3-01f28506b6aa",
+        "name": "Wait for a download in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          0,
+          192
+        ],
+        "parameters": {
+          "operation": "waitForDownload",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}",
+          "additionalFields": {}
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "500f0089-97bf-49e6-8309-a93e73e4d9bb",
+        "name": "Click an element in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          176,
+          192
+        ],
+        "parameters": {
+          "resource": "interaction",
+          "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Window_ID&apos;, ``, &apos;string&apos;) }}",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}",
+          "additionalFields": {},
+          "elementDescription": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Element_Description&apos;, ``, &apos;string&apos;) }}"
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "e8cb67ab-4b27-442a-87c1-d1c95da567cd",
+        "name": "Scroll on page in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          336,
+          192
+        ],
+        "parameters": {
+          "resource": "interaction",
+          "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Window_ID&apos;, ``, &apos;string&apos;) }}",
+          "operation": "scroll",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}",
+          "scrollWithin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Scrollable_Area&apos;, ``, &apos;string&apos;) }}",
+          "scrollToElement": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Element_Description&apos;, ``, &apos;string&apos;) }}",
+          "additionalFields": {}
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "48450240-2764-4654-8aa7-1529d72ecf0a",
+        "name": "Fill form in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          496,
+          192
+        ],
+        "parameters": {
+          "formData": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Form_Data&apos;, ``, &apos;string&apos;) }}",
+          "resource": "interaction",
+          "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Window_ID&apos;, ``, &apos;string&apos;) }}",
+          "operation": "fill",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}"
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "8a58b8ad-dd20-4cee-a86e-382de52165cc",
+        "name": "Query page in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          672,
+          192
+        ],
+        "parameters": {
+          "prompt": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Prompt&apos;, ``, &apos;string&apos;) }}",
+          "resource": "extraction",
+          "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Window_ID&apos;, ``, &apos;string&apos;) }}",
+          "operation": "query",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}",
+          "additionalFields": {}
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "c7202080-a50f-4497-941a-c55dfe908dd0",
+        "name": "Query page with pagination in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          848,
+          176
+        ],
+        "parameters": {
+          "prompt": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Prompt&apos;, ``, &apos;string&apos;) }}",
+          "resource": "extraction",
+          "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Window_ID&apos;, ``, &apos;string&apos;) }}",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}",
+          "additionalFields": {}
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "976a008d-b5f3-4d01-940d-d3881002e8dc",
+        "name": "Take screenshot in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          -544,
+          192
+        ],
+        "parameters": {
+          "resource": "window",
+          "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Window_ID&apos;, ``, &apos;string&apos;) }}",
+          "operation": "takeScreenshot",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}",
+          "outputImageAsBinary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Output_Binary_Image&apos;, ``, &apos;boolean&apos;) }}"
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "f99ab906-ab7e-41d6-bbcf-05a1b21f7bfe",
+        "name": "Load a page in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          -720,
+          192
+        ],
+        "parameters": {
+          "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;URL&apos;, ``, &apos;string&apos;) }}",
+          "resource": "window",
+          "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Window_ID&apos;, ``, &apos;string&apos;) }}",
+          "operation": "load",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}",
+          "additionalFields": {}
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "576d693b-f347-4b43-81a2-9833e426ecf4",
+        "name": "Create a window in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          -880,
+          192
+        ],
+        "parameters": {
+          "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;URL&apos;, ``, &apos;string&apos;) }}",
+          "resource": "window",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}",
+          "getLiveView": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Get_Live_View&apos;, ``, &apos;boolean&apos;) }}",
+          "additionalFields": {}
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "6bd67a5f-73d7-48de-a017-d25dec94ba89",
+        "name": "Close a window in Airtop",
+        "type": "n8n-nodes-base.airtopTool",
+        "position": [
+          48,
+          320
+        ],
+        "parameters": {
+          "resource": "window",
+          "windowId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Window_ID&apos;, ``, &apos;string&apos;) }}",
+          "operation": "close",
+          "sessionId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI(&apos;Session_ID&apos;, ``, &apos;string&apos;) }}"
+        },
+        "credentials": {
+          "airtopApi": {
+            "id": "NJwTbvx3ztbD5gom",
+            "name": "Airtop account"
+          }
+        },
+        "typeVersion": 1
+      }
+    ],
+    "pinData": {},
+    "connections": {
+      "Fill form in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Query page in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Load a page in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Close a window in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Scroll on page in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create a window in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Take screenshot in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Click an element in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create a session in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Terminate a session in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait for a download in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Query page with pagination in Airtop": {
+        "ai_tool": [
+          [
+            {
+              "node": "MCP Server Trigger",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "evaluation": {
+    "overall_score": 45.0,
+    "quality_tier": "bronze",
+    "confidence": 0.3,
+    "dimensions": {
+      "architecture": 50.0,
+      "error_handling": 20.0,
+      "security": 30.0,
+      "performance": 40.0,
+      "maintainability": 70.0,
+      "best_practices": 50.0,
+      "scalability": 50.0,
+      "innovation": 60.0
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after session creation to catch failures.",
+        "node_id": "Create a session in Airtop",
+        "fix_details": {
+          "action": "Insert Error Trigger node connected to the output, with retry logic."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "critical",
+        "description": "Validate inputs for page loads and form fills to prevent injection.",
+        "node_id": "Load a page in Airtop",
+        "fix_details": {
+          "action": "Add a Code node before to sanitize URL inputs."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Implement caching for repeated page queries.",
+        "node_id": "Query page in Airtop",
+        "fix_details": {
+          "action": "Use N8N's cache node to store and retrieve query results."
+        }
+      },
+      {
+        "type": "maintainability",
+        "priority": "low",
+        "description": "Improve node naming for clarity.",
+        "node_id": "Fill form in Airtop",
+        "fix_details": {
+          "action": "Rename to 'Fill Login Form in Airtop' with added notes."
+        }
+      }
+    ],
+    "semantic_intent": {},
+    "evaluation_cost": 4.8973125999999985,
+    "evaluation_time": 14.245257377624512,
+    "evaluator": "grok-code-fast-1"
+  },
+  "category": "AI",
+  "category_metadata": {
+    "primary_category": "AI",
+    "confidence": 0.4444444444444444,
+    "all_categories": [
+      {
+        "category": "AI",
+        "confidence": 0.4444444444444444
+      },
+      {
+        "category": "Customer Support",
+        "confidence": 0.27777777777777773
+      },
+      {
+        "category": "Content Creation",
+        "confidence": 0.27777777777777773
+      }
+    ],
+    "detection_sources": {
+      "nodes": "",
+      "architecture": "vertical",
+      "pattern": "AI(0.80), Customer Support(0.50), Content Creation(0.50)",
+      "nlp": ""
+    },
+    "architecture_type": "vertical",
+    "category_quality_score": 53.333333333333336
+  },
+  "source_path": "C:\\Users\\DELL\\n8n-workflow-scraper\\data\\workflows\\staging_unique\\Customer_Support\\automated-web-browsing-extraction-with-airtop-and-ai-prompted-queries-6710.json"
+}

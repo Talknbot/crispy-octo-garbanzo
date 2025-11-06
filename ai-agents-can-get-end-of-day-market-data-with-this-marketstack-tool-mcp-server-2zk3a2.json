@@ -1,0 +1,354 @@
+{
+  "workflow": {
+    "meta": {
+      "instanceId": "cd59eaaeb7b34d06e24511380db94cdb7fbce6037cc4de22e539c5158ab9cdfc"
+    },
+    "nodes": [
+      {
+        "id": "72c021e9-b1a5-48d5-98e3-c59278dc8d66",
+        "name": "Workflow Overview 0",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1460,
+          -60
+        ],
+        "parameters": {
+          "width": 420,
+          "height": 820,
+          "content": "## \ud83d\udee0\ufe0f Marketstack Tool MCP Server\n\n### \ud83d\udccb Available Operations (3 total)\n\n**Endofdaydata**: get all\n**Exchange**: get\n**Ticker**: get\n\n### \u2699\ufe0f Setup Instructions\n\n1. **Import Workflow**: Load this workflow into your n8n instance\n\n1. **\ud83d\udd11 Add Credentials**: Configure Marketstack Tool authentication in one tool node then open and close all others.\n2. **\ud83d\ude80 Activate**: Enable this workflow to start your MCP server\n3. **\ud83d\udd17 Get URL**: Copy webhook URL from MCP trigger (right side)\n4. **\ud83e\udd16 Connect**: Use MCP URL in your AI agent configurations\n\n### \u2728 Ready-to-Use Features\n\n\u2022 Zero configuration - all 3 operations pre-built\n\u2022 AI agents automatically populate parameters via `$fromAI()` expressions\n\u2022 Every resource and operation combination available\n\u2022 Native n8n error handling and response formatting\n\u2022 Modify parameter defaults in any tool node as needed\n\n### \ud83d\udcac Need Help?\nCheck the [n8n documentation](https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolmcp/) or ping me on [discord](https://discord.me/cfomodz) for MCP integration guidance or customizations."
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "bf56d816-478e-4745-9f63-8d4cb063ab74",
+        "name": "Marketstack Tool MCP Server",
+        "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+        "position": [
+          -700,
+          -60
+        ],
+        "webhookId": "a69e1598-9069-4e24-b62b-c6bd02d3ceaa",
+        "parameters": {
+          "path": "marketstack-tool-mcp"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "40a928b6-95be-46ec-b836-1acffdf482eb",
+        "name": "Get many EoD data",
+        "type": "n8n-nodes-base.marketstackTool",
+        "position": [
+          -800,
+          140
+        ],
+        "parameters": {
+          "limit": "={{ $fromAI('Limit', ``, 'number') }}",
+          "filters": {},
+          "symbols": "={{ $fromAI('Symbols', ``, 'string') }}",
+          "returnAll": "={{ $fromAI('Return_All', ``, 'boolean') }}"
+        },
+        "credentials": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "e9760cd3-5040-4540-8d80-e454c91a8685",
+        "name": "Sticky Note 1",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1000,
+          120
+        ],
+        "parameters": {
+          "color": 4,
+          "width": 400,
+          "content": "## Endofdaydata"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "1d1009d4-2550-40f1-8898-9f852a51ebf8",
+        "name": "Get an exchange",
+        "type": "n8n-nodes-base.marketstackTool",
+        "position": [
+          -800,
+          380
+        ],
+        "parameters": {
+          "exchange": "={{ $fromAI('Exchange', ``, 'string') }}",
+          "resource": "exchange"
+        },
+        "credentials": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "a9486b80-8efe-4f31-ac1c-d63c5ad71d30",
+        "name": "Sticky Note 2",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1000,
+          360
+        ],
+        "parameters": {
+          "color": 5,
+          "width": 400,
+          "content": "## Exchange"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "c9927486-c562-4224-9644-c1e99e3e7bdd",
+        "name": "Get a ticker",
+        "type": "n8n-nodes-base.marketstackTool",
+        "position": [
+          -800,
+          620
+        ],
+        "parameters": {
+          "symbol": "={{ $fromAI('Symbol', ``, 'string') }}",
+          "resource": "ticker"
+        },
+        "credentials": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "61be9fc7-6369-4fec-91ef-1c158df8316c",
+        "name": "Sticky Note 3",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1000,
+          600
+        ],
+        "parameters": {
+          "color": 6,
+          "width": 400,
+          "content": "## Ticker"
+        },
+        "typeVersion": 1
+      }
+    ],
+    "pinData": {},
+    "connections": {
+      "Get a ticker": {
+        "ai_tool": [
+          [
+            {
+              "node": "Marketstack Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get an exchange": {
+        "ai_tool": [
+          [
+            {
+              "node": "Marketstack Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get many EoD data": {
+        "ai_tool": [
+          [
+            {
+              "node": "Marketstack Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "original_file": "C:\\Users\\DELL\\n8n-workflow-scraper\\scraped-workflows\\workflows\\AI\\ai-agents-can-get-end-of-day-market-data-with-this-marketstack-tool-mcp-server-2zk3a2.json",
+    "category": "AI",
+    "category_confidence": 0.53125,
+    "quality_score": 25.0,
+    "quality_tier": "bronze",
+    "evaluated_at": "2025-10-02T01:54:04.227248",
+    "evaluator": "grok-code-fast-1",
+    "cost": 0.4455090999999999,
+    "nodes_count": 8,
+    "batch": 1
+  },
+  "evaluation": {
+    "overall_score": 25.0,
+    "confidence": 0.8,
+    "quality_tier": "bronze",
+    "dimensions": {
+      "architecture": {
+        "score": 30,
+        "issues": [
+          "Vertical architecture is used, but with only 8 nodes, it may not be the most efficient for this simple linear flow; connections appear basic without branching or parallel processing.",
+          "No evidence of logical grouping or modular design; sticky notes are used as separators but do not enhance flow structure.",
+          "Lack of intelligence data makes it hard to confirm if connections follow best practices for Marketstack integrations."
+        ],
+        "strengths": [
+          "Simple vertical layout is straightforward for a linear data fetching workflow.",
+          "Nodes are connected sequentially, avoiding unnecessary complexity."
+        ],
+        "recommendations": [
+          "Consider switching to a horizontal or modular architecture if the workflow grows to include conditional logic or multiple data sources.",
+          "Group related nodes (e.g., all Marketstack tools) into sub-workflows for better organization.",
+          "Add decision nodes or routers if the flow needs to handle different data paths based on inputs."
+        ]
+      },
+      "error_handling": {
+        "score": 10,
+        "issues": [
+          "No error handling nodes (e.g., Error Trigger or Try-Catch equivalents) are present in the workflow.",
+          "No retry mechanisms configured on API calls to Marketstack tools, which could fail due to network issues or rate limits.",
+          "Without intelligence, it's unclear if nodes have built-in error handling, but the absence of explicit error nodes is a gap."
+        ],
+        "strengths": [
+          "The workflow is simple, reducing the need for complex error handling in this basic setup."
+        ],
+        "recommendations": [
+          "Add an Error Trigger node at the start to catch and log errors globally.",
+          "Configure retry options on Marketstack nodes (e.g., set retry count to 3 with exponential backoff).",
+          "Implement conditional logic to handle API errors gracefully, such as sending notifications on failure."
+        ]
+      },
+      "security": {
+        "score": 20,
+        "issues": [
+          "No information on credential configuration; Marketstack tools likely require API keys, but without intelligence, potential misconfigurations (e.g., hardcoded keys) cannot be verified.",
+          "No input validation nodes to sanitize data from Marketstack APIs, risking injection or malformed data processing.",
+          "Potential vulnerabilities if the MCP Server trigger exposes endpoints without authentication checks."
+        ],
+        "strengths": [
+          "Using official N8N nodes (Marketstack) which typically have built-in security features."
+        ],
+        "recommendations": [
+          "Ensure API keys are stored securely using N8N's credential system, not hardcoded.",
+          "Add input validation nodes (e.g., using Code nodes) to check data formats before processing.",
+          "Review the MCP Server trigger for proper authentication and access controls."
+        ]
+      },
+      "performance": {
+        "score": 15,
+        "issues": [
+          "No caching mechanisms (e.g., no use of Cache nodes) for repeated Marketstack API calls, leading to potential redundant requests.",
+          "Nodes may not be optimized; without intelligence, configurations like batching or pagination on Marketstack tools are unknown.",
+          "Vertical flow could lead to sequential bottlenecks if nodes are not asynchronous."
+        ],
+        "strengths": [
+          "Simple flow with few nodes minimizes overhead."
+        ],
+        "recommendations": [
+          "Implement caching for EoD data or ticker fetches to avoid repeated API hits.",
+          "Configure Marketstack nodes for optimal settings, such as enabling pagination if fetching large datasets.",
+          "Consider parallel execution if possible, or use Wait nodes to optimize timing."
+        ]
+      },
+      "maintainability": {
+        "score": 20,
+        "issues": [
+          "Node names are generic (e.g., 'Get many EoD data') and not descriptive enough for quick understanding.",
+          "Sticky notes are used but lack detailed explanations; parameters are not specified without intelligence.",
+          "Workflow is not self-documenting due to lack of comments or metadata."
+        ],
+        "strengths": [
+          "Sticky notes provide some separation, aiding basic readability."
+        ],
+        "recommendations": [
+          "Rename nodes to be more descriptive, e.g., 'Fetch End-of-Day Stock Data for Multiple Tickers'.",
+          "Add detailed sticky notes or use the Notes field in nodes to explain purposes and configurations.",
+          "Standardize parameter settings and add version control comments."
+        ]
+      },
+      "best_practices": {
+        "score": 25,
+        "issues": [
+          "Without intelligence, adherence to node-specific best practices (e.g., for Marketstack tools) cannot be assessed, but the presence of an MCP trigger suggests potential misuse if not configured properly.",
+          "Common mistakes like missing error handling or poor naming are evident.",
+          "No evidence of optimization tips, such as using webhooks instead of polling for Marketstack data."
+        ],
+        "strengths": [
+          "Uses standard N8N nodes, avoiding custom code where possible."
+        ],
+        "recommendations": [
+          "Follow Marketstack node best practices: ensure API limits are respected and use appropriate endpoints.",
+          "Avoid common pitfalls like over-polling; consider scheduling or event-driven triggers.",
+          "Apply N8N best practices, such as using expressions for dynamic inputs."
+        ]
+      },
+      "scalability": {
+        "score": 30,
+        "issues": [
+          "Linear vertical flow may not scale well with increased load; no parallel processing or load balancing.",
+          "Marketstack API calls could hit rate limits under high volume without queuing or batching.",
+          "No consideration for handling multiple users or concurrent executions."
+        ],
+        "strengths": [
+          "Simple structure allows for easy scaling by adding more nodes if needed."
+        ],
+        "recommendations": [
+          "Introduce parallel branches for fetching different data types simultaneously.",
+          "Implement queuing with RabbitMQ or similar for high-load scenarios.",
+          "Monitor API usage and add throttling to prevent scalability issues."
+        ]
+      },
+      "innovation": {
+        "score": 35,
+        "issues": [
+          "Workflow is basic and does not incorporate innovative features like AI integrations, custom logic, or advanced data processing.",
+          "Relies on standard Marketstack tools without creative use of N8N's ecosystem (e.g., no integration with other services).",
+          "MCP Server trigger is present but not leveraged innovatively."
+        ],
+        "strengths": [
+          "Uses MCP for triggering, which could be a modern approach if expanded."
+        ],
+        "recommendations": [
+          "Incorporate AI nodes (e.g., for data analysis on fetched market data) to add innovation.",
+          "Explore custom JavaScript in Code nodes for unique processing logic.",
+          "Integrate with other tools like Slack for notifications or databases for storage to enhance functionality."
+        ]
+      }
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add retry mechanism to Marketstack nodes to handle API failures.",
+        "node_id": "Get many EoD data",
+        "fix_details": {
+          "action": "Configure retry options in node settings: set max retries to 3, with 1-second delay."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "critical",
+        "description": "Ensure credentials are properly configured for Marketstack API.",
+        "node_id": "Marketstack Tool MCP Server",
+        "fix_details": {
+          "action": "Use N8N credentials manager to store API key securely."
+        }
+      },
+      {
+        "type": "maintainability",
+        "priority": "medium",
+        "description": "Improve node naming for clarity.",
+        "node_id": "Get many EoD data",
+        "fix_details": {
+          "action": "Rename to 'Fetch End-of-Day Market Data for Specified Tickers'."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Add caching to reduce redundant API calls.",
+        "node_id": "Get a ticker",
+        "fix_details": {
+          "action": "Insert a Cache node before this node to store results for a set duration."
+        }
+      }
+    ],
+    "migration_recommendation": "needs_major_refactor",
+    "estimated_improvement_time": "4-6 hours"
+  }
+}

@@ -1,0 +1,410 @@
+{
+  "workflow": {
+    "id": "MxOIqkxQSzbyYZLF",
+    "meta": null,
+    "name": "Google Contacts Tool MCP Server",
+    "tags": [],
+    "nodes": [
+      {
+        "id": "2ed7dbcc-ca96-4585-b696-4bf375bbe41c",
+        "name": "Workflow Overview 0",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1460,
+          -240
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "978e2c6c-bb7d-4474-9450-a1251df314ad",
+        "name": "Google Contacts Tool MCP Server",
+        "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+        "position": [
+          -420,
+          -240
+        ],
+        "webhookId": "b01daa41-89ef-41ef-9e77-7ede3bf78a31",
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "7d747774-3672-4b0e-a3c9-86c992076af4",
+        "name": "Create a contact",
+        "type": "n8n-nodes-base.googleContactsTool",
+        "position": [
+          -800,
+          140
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "093cedfd-5fd5-457c-8f5d-8338a1e1b9a3",
+        "name": "Delete a contact",
+        "type": "n8n-nodes-base.googleContactsTool",
+        "position": [
+          -580,
+          140
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "8fd96100-a77a-49b9-a5a7-8a810415466a",
+        "name": "Get a contact",
+        "type": "n8n-nodes-base.googleContactsTool",
+        "position": [
+          -360,
+          140
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "f183dee4-5d4b-42a3-95fc-7df14151fbbb",
+        "name": "Get many contacts",
+        "type": "n8n-nodes-base.googleContactsTool",
+        "position": [
+          -140,
+          140
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "1fdc28b2-76f7-4ca6-bd8d-1798dd639b71",
+        "name": "Update a contact",
+        "type": "n8n-nodes-base.googleContactsTool",
+        "position": [
+          80,
+          140
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "53c4811f-cd76-4e2e-8f69-82319b354e08",
+        "name": "Sticky Note 1",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1000,
+          120
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      }
+    ],
+    "active": false,
+    "shared": [
+      {
+        "role": "workflow:owner",
+        "project": {
+          "id": "G5fce9xGuBAsWBXe",
+          "icon": null,
+          "name": "David Ashby <david.ashby.lds@gmail.com>",
+          "type": "personal",
+          "createdAt": "2025-06-04T02:55:02.013Z",
+          "updatedAt": "2025-06-04T02:56:01.361Z",
+          "projectRelations": [
+            {
+              "role": "project:personalOwner",
+              "user": {
+                "id": "715c1c00-cb48-4712-9a32-f1f4b6db2b30",
+                "role": "global:owner",
+                "email": "david.ashby.lds@gmail.com",
+                "disabled": false,
+                "lastName": "Ashby",
+                "settings": {
+                  "npsSurvey": {
+                    "responded": true,
+                    "lastShownAt": 1749357655581
+                  },
+                  "userActivated": true,
+                  "userActivatedAt": 1749075994495,
+                  "easyAIWorkflowOnboarded": true,
+                  "firstSuccessfulWorkflowId": "3N3vVikZb3MckFYm"
+                },
+                "createdAt": "2025-06-04T02:55:01.745Z",
+                "firstName": "David",
+                "isPending": false,
+                "updatedAt": "2025-06-08T04:40:58.399Z",
+                "mfaEnabled": false,
+                "personalizationAnswers": {
+                  "version": "v4",
+                  "personalization_survey_n8n_version": "1.95.3",
+                  "personalization_survey_submitted_at": "2025-06-04T02:56:07.075Z"
+                }
+              },
+              "userId": "715c1c00-cb48-4712-9a32-f1f4b6db2b30",
+              "createdAt": "2025-06-04T02:55:02.013Z",
+              "projectId": "G5fce9xGuBAsWBXe",
+              "updatedAt": "2025-06-04T02:55:02.013Z"
+            }
+          ]
+        },
+        "createdAt": "2025-06-24T22:17:33.484Z",
+        "projectId": "G5fce9xGuBAsWBXe",
+        "updatedAt": "2025-06-24T22:17:33.484Z",
+        "workflowId": "MxOIqkxQSzbyYZLF"
+      }
+    ],
+    "pinData": {},
+    "settings": {
+      "timezone": "America/New_York"
+    },
+    "createdAt": "2025-06-24T22:17:33.483Z",
+    "updatedAt": "2025-06-24T22:17:53.000Z",
+    "versionId": "7360d04d-4bc3-4c92-a7e4-0366856cf771",
+    "isArchived": false,
+    "staticData": null,
+    "connections": {
+      "Get a contact": {
+        "ai_tool": [
+          [
+            {
+              "node": "Google Contacts Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create a contact": {
+        "ai_tool": [
+          [
+            {
+              "node": "Google Contacts Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Delete a contact": {
+        "ai_tool": [
+          [
+            {
+              "node": "Google Contacts Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update a contact": {
+        "ai_tool": [
+          [
+            {
+              "node": "Google Contacts Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get many contacts": {
+        "ai_tool": [
+          [
+            {
+              "node": "Google Contacts Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "triggerCount": 0
+  },
+  "metadata": {
+    "original_file": "C:\\Users\\DELL\\n8n-workflow-scraper\\scraped-workflows\\workflows\\AI\\ai-agent-managed-google-contacts-tool-mcp-server-5-operations-d9rm7w.json",
+    "category": "AI",
+    "category_confidence": 0.53125,
+    "quality_score": 25.0,
+    "quality_tier": "bronze",
+    "evaluated_at": "2025-10-02T01:51:18.955629",
+    "evaluator": "grok-code-fast-1",
+    "cost": 0.41508829999999997,
+    "nodes_count": 8,
+    "batch": 1
+  },
+  "evaluation": {
+    "overall_score": 25.0,
+    "confidence": 0.85,
+    "quality_tier": "bronze",
+    "dimensions": {
+      "architecture": {
+        "score": 30,
+        "issues": [
+          "Vertical architecture is used, but with only 8 nodes, it may not be the most efficient; connections appear basic without branching or complex logic.",
+          "No clear separation of concerns; all Google Contacts operations are parallel without conditional routing.",
+          "Lack of workflow structure for handling different MCP requests beyond basic triggers."
+        ],
+        "strengths": [
+          "Simple vertical layout makes it easy to follow the flow from trigger to operations.",
+          "All nodes are connected logically to the MCP Trigger."
+        ],
+        "recommendations": [
+          "Consider adding conditional nodes (e.g., Switch) to route based on MCP request types for better modularity.",
+          "Introduce sub-workflows if operations grow to improve scalability."
+        ]
+      },
+      "error_handling": {
+        "score": 10,
+        "issues": [
+          "No error handling nodes (e.g., Error Trigger or Try-Catch equivalents) present in the workflow.",
+          "No retry mechanisms for failed Google Contacts API calls.",
+          "Potential for unhandled errors to crash the MCP server."
+        ],
+        "strengths": [
+          "Basic structure allows for easy addition of error handling."
+        ],
+        "recommendations": [
+          "Add Error Trigger nodes after each Google Contacts operation to catch and log errors.",
+          "Implement retry logic using Loop nodes for transient failures.",
+          "Use Set node to store error states and notify via email or webhook."
+        ]
+      },
+      "security": {
+        "score": 20,
+        "issues": [
+          "No visible credential validation or secure storage practices mentioned.",
+          "Inputs to Google Contacts nodes are not validated, risking injection or unauthorized access.",
+          "No authentication checks beyond basic Google API credentials."
+        ],
+        "strengths": [
+          "Relies on Google's built-in authentication for Contacts API."
+        ],
+        "recommendations": [
+          "Ensure credentials are stored securely in N8N and rotated regularly.",
+          "Add input validation using Function nodes to sanitize data before API calls.",
+          "Implement rate limiting or IP whitelisting if exposed as an MCP server."
+        ]
+      },
+      "performance": {
+        "score": 25,
+        "issues": [
+          "No caching mechanisms for repeated contact lookups.",
+          "Operations are synchronous without optimization for bulk processing.",
+          "Potential for slow performance with large contact lists in 'Get many contacts'."
+        ],
+        "strengths": [
+          "Simple operations should perform adequately for small-scale use."
+        ],
+        "recommendations": [
+          "Add caching using Redis or in-memory nodes for frequent queries.",
+          "Optimize 'Get many contacts' with pagination and batching.",
+          "Use asynchronous execution where possible to handle multiple requests concurrently."
+        ]
+      },
+      "maintainability": {
+        "score": 20,
+        "issues": [
+          "Node names are generic (e.g., 'Create a contact') without descriptive context.",
+          "Parameters are not detailed, making configuration hard to understand.",
+          "Workflow lacks comments or documentation beyond sticky notes."
+        ],
+        "strengths": [
+          "Sticky notes provide basic overview, aiding initial understanding."
+        ],
+        "recommendations": [
+          "Rename nodes to be more descriptive, e.g., 'Create New Google Contact via MCP'.",
+          "Add detailed parameter configurations and use variables for reusability.",
+          "Incorporate more sticky notes or comments for each operation's purpose."
+        ]
+      },
+      "best_practices": {
+        "score": 15,
+        "issues": [
+          "No adherence to N8N best practices like using expressions for dynamic values.",
+          "Common mistakes like hardcoding values instead of using environment variables.",
+          "Lack of version control or testing nodes."
+        ],
+        "strengths": [
+          "Uses standard N8N nodes for Google Contacts integration."
+        ],
+        "recommendations": [
+          "Use expressions and variables instead of static values in node parameters.",
+          "Add testing workflows or mock nodes for validation.",
+          "Follow N8N guidelines for MCP server setups, including proper trigger configurations."
+        ]
+      },
+      "scalability": {
+        "score": 30,
+        "issues": [
+          "Workflow may not handle high-volume MCP requests due to lack of queuing or load balancing.",
+          "Parallel operations could lead to resource exhaustion without limits.",
+          "No consideration for scaling beyond single-instance deployment."
+        ],
+        "strengths": [
+          "Vertical architecture allows for easy addition of more operations."
+        ],
+        "recommendations": [
+          "Implement queuing with RabbitMQ or similar for request handling.",
+          "Add load balancing by deploying multiple N8N instances.",
+          "Monitor performance and add auto-scaling triggers."
+        ]
+      },
+      "innovation": {
+        "score": 40,
+        "issues": [
+          "Basic implementation without advanced features like AI-driven contact suggestions or integrations.",
+          "No use of cutting-edge N8N features like custom nodes or advanced LangChain integrations."
+        ],
+        "strengths": [
+          "Integrates MCP with Google Contacts, providing a novel server for contact management."
+        ],
+        "recommendations": [
+          "Explore adding AI features, such as using LangChain for intelligent contact updates.",
+          "Incorporate webhooks for real-time sync with other tools.",
+          "Experiment with custom nodes for specialized contact analytics."
+        ]
+      }
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after each Google Contacts node to catch API failures.",
+        "node_id": "Create a contact",
+        "fix_details": {
+          "action": "Insert Error Trigger node connected to the output of 'Create a contact' with retry logic."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "critical",
+        "description": "Validate inputs to prevent unauthorized access.",
+        "node_id": "Google Contacts Tool MCP Server",
+        "fix_details": {
+          "action": "Add a Function node before operations to validate MCP request parameters."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Implement caching for contact lookups.",
+        "node_id": "Get a contact",
+        "fix_details": {
+          "action": "Integrate a Cache node to store and retrieve contact data."
+        }
+      },
+      {
+        "type": "maintainability",
+        "priority": "low",
+        "description": "Rename nodes for clarity.",
+        "node_id": "Create a contact",
+        "fix_details": {
+          "action": "Change node name to 'MCP Create Google Contact'."
+        }
+      }
+    ],
+    "migration_recommendation": "needs_major_refactor",
+    "estimated_improvement_time": "2-4 weeks"
+  }
+}
