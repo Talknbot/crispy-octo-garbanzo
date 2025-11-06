@@ -1,0 +1,482 @@
+{
+  "workflow": {
+    "id": "77Kuu8wpw75diETD",
+    "meta": null,
+    "name": "Kitemaker Tool MCP Server",
+    "tags": [],
+    "nodes": [
+      {
+        "id": "1b6d1936-4cff-4583-a019-264ca4ef2abe",
+        "name": "Workflow Overview 0",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1480,
+          120
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "c25f032c-7908-4fc7-bb35-c22a1726b3fe",
+        "name": "Kitemaker Tool MCP Server",
+        "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+        "position": [
+          -300,
+          160
+        ],
+        "webhookId": "b71488e8-8eae-4536-8de4-1b29757c2c5c",
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "05128750-cb00-4a47-b8e5-bb5f66d6e3bd",
+        "name": "Get the logged-in user's organization",
+        "type": "n8n-nodes-base.kitemakerTool",
+        "position": [
+          -800,
+          140
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "226d1197-e7b7-44af-a71c-51bf53ce48e5",
+        "name": "Sticky Note 1",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1000,
+          120
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "4ce0d5e1-aa27-4623-bfda-9630b68807e1",
+        "name": "Get many spaces",
+        "type": "n8n-nodes-base.kitemakerTool",
+        "position": [
+          -800,
+          380
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "b37f9ef6-bbbe-404f-ab36-06e21a65f479",
+        "name": "Sticky Note 2",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1000,
+          360
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "8a2da8fd-da98-4389-babb-70f4db24e846",
+        "name": "Get many users",
+        "type": "n8n-nodes-base.kitemakerTool",
+        "position": [
+          -800,
+          620
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "f28918df-d4d5-4218-ae45-380c0326a52c",
+        "name": "Sticky Note 3",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1000,
+          600
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "7c8ae07f-bd6c-404f-8c7a-29f9662ea34b",
+        "name": "Create a work item",
+        "type": "n8n-nodes-base.kitemakerTool",
+        "position": [
+          -800,
+          860
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "838447b1-f4f7-4988-a9fc-6508c18ae2dc",
+        "name": "Get a work item",
+        "type": "n8n-nodes-base.kitemakerTool",
+        "position": [
+          -580,
+          860
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "bfa6db27-3a0d-4794-82e7-34fc68d82977",
+        "name": "Get many work items",
+        "type": "n8n-nodes-base.kitemakerTool",
+        "position": [
+          -360,
+          860
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "b667e4ca-66b1-4a4f-8259-51d28012ffff",
+        "name": "Update a work item",
+        "type": "n8n-nodes-base.kitemakerTool",
+        "position": [
+          -140,
+          860
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "44a7cfc7-4b7d-4101-a696-8a0fc2e4e1cc",
+        "name": "Sticky Note 4",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -1000,
+          840
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      }
+    ],
+    "active": false,
+    "shared": [
+      {
+        "role": "workflow:owner",
+        "project": {
+          "id": "G5fce9xGuBAsWBXe",
+          "icon": null,
+          "name": "David Ashby <david.ashby.lds@gmail.com>",
+          "type": "personal",
+          "createdAt": "2025-06-04T02:55:02.013Z",
+          "updatedAt": "2025-06-04T02:56:01.361Z",
+          "projectRelations": [
+            {
+              "role": "project:personalOwner",
+              "user": {
+                "id": "715c1c00-cb48-4712-9a32-f1f4b6db2b30",
+                "role": "global:owner",
+                "email": "david.ashby.lds@gmail.com",
+                "disabled": false,
+                "lastName": "Ashby",
+                "settings": {
+                  "npsSurvey": {
+                    "responded": true,
+                    "lastShownAt": 1749357655581
+                  },
+                  "userActivated": true,
+                  "userActivatedAt": 1749075994495,
+                  "easyAIWorkflowOnboarded": true,
+                  "firstSuccessfulWorkflowId": "3N3vVikZb3MckFYm"
+                },
+                "createdAt": "2025-06-04T02:55:01.745Z",
+                "firstName": "David",
+                "isPending": false,
+                "updatedAt": "2025-06-08T04:40:58.399Z",
+                "mfaEnabled": false,
+                "personalizationAnswers": {
+                  "version": "v4",
+                  "personalization_survey_n8n_version": "1.95.3",
+                  "personalization_survey_submitted_at": "2025-06-04T02:56:07.075Z"
+                }
+              },
+              "userId": "715c1c00-cb48-4712-9a32-f1f4b6db2b30",
+              "createdAt": "2025-06-04T02:55:02.013Z",
+              "projectId": "G5fce9xGuBAsWBXe",
+              "updatedAt": "2025-06-04T02:55:02.013Z"
+            }
+          ]
+        },
+        "createdAt": "2025-06-24T21:35:41.619Z",
+        "projectId": "G5fce9xGuBAsWBXe",
+        "updatedAt": "2025-06-24T21:35:41.619Z",
+        "workflowId": "77Kuu8wpw75diETD"
+      }
+    ],
+    "pinData": {},
+    "settings": {
+      "timezone": "America/New_York"
+    },
+    "createdAt": "2025-06-24T21:35:41.617Z",
+    "updatedAt": "2025-06-24T21:36:01.000Z",
+    "versionId": "5df41715-8a2b-4d97-a03e-72a540eb278f",
+    "isArchived": false,
+    "staticData": null,
+    "connections": {
+      "Get many users": {
+        "ai_tool": [
+          [
+            {
+              "node": "Kitemaker Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get a work item": {
+        "ai_tool": [
+          [
+            {
+              "node": "Kitemaker Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get many spaces": {
+        "ai_tool": [
+          [
+            {
+              "node": "Kitemaker Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create a work item": {
+        "ai_tool": [
+          [
+            {
+              "node": "Kitemaker Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update a work item": {
+        "ai_tool": [
+          [
+            {
+              "node": "Kitemaker Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get many work items": {
+        "ai_tool": [
+          [
+            {
+              "node": "Kitemaker Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get the logged-in user's organization": {
+        "ai_tool": [
+          [
+            {
+              "node": "Kitemaker Tool MCP Server",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "triggerCount": 0
+  },
+  "metadata": {
+    "original_file": "C:\\Users\\DELL\\n8n-workflow-scraper\\scraped-workflows\\workflows\\AI\\allow-ai-agents-to-access-user-workitem-operations-kitemaker-tool-mcp-server-tixx4n.json",
+    "category": "AI",
+    "category_confidence": 0.53125,
+    "quality_score": 55.0,
+    "quality_tier": "silver",
+    "evaluated_at": "2025-10-02T03:15:03.950531",
+    "evaluator": "grok-code-fast-1",
+    "cost": 1.219533299999999,
+    "nodes_count": 13,
+    "batch": 1
+  },
+  "evaluation": {
+    "overall_score": 55.0,
+    "confidence": 0.85,
+    "quality_tier": "silver",
+    "dimensions": {
+      "architecture": {
+        "score": 60,
+        "issues": [
+          "Vertical architecture is used, but with 13 nodes, it may become unwieldy; consider modularizing into sub-workflows for better organization.",
+          "Connections appear sequential, but without intelligence data, it's unclear if they follow logical data flow best practices."
+        ],
+        "strengths": [
+          "Nodes are arranged in a linear vertical flow, which is appropriate for a simple MCP server setup.",
+          "Sticky notes are interspersed, potentially aiding in sectioning the workflow."
+        ],
+        "recommendations": [
+          "Review node connections to ensure data flows logically without unnecessary loops or dead ends.",
+          "Consider switching to a horizontal or hybrid architecture if the workflow grows beyond 13 nodes for better readability."
+        ]
+      },
+      "error_handling": {
+        "score": 20,
+        "issues": [
+          "No visible error handling nodes (e.g., no Error Trigger or Try-Catch equivalents) present in the workflow.",
+          "No retry mechanisms configured for API calls to Kitemaker, which could lead to failures on transient errors."
+        ],
+        "strengths": [
+          "Basic structure doesn't introduce obvious error-prone patterns."
+        ],
+        "recommendations": [
+          "Add error handling nodes after each Kitemaker operation to catch and log errors.",
+          "Implement retry logic with exponential backoff for API-dependent nodes like 'Get many spaces' or 'Create a work item'."
+        ]
+      },
+      "security": {
+        "score": 50,
+        "issues": [
+          "Credentials for Kitemaker are assumed to be configured, but without intelligence, input validation isn't confirmed.",
+          "No explicit input sanitization or validation nodes, potentially exposing to injection risks if user inputs are involved."
+        ],
+        "strengths": [
+          "Uses standard N8N nodes for Kitemaker, which likely handle basic authentication securely if credentials are set properly."
+        ],
+        "recommendations": [
+          "Ensure all inputs to Kitemaker nodes are validated (e.g., via Set node or custom code) to prevent malicious data.",
+          "Review credential storage and access controls in N8N to avoid unauthorized use."
+        ]
+      },
+      "performance": {
+        "score": 40,
+        "issues": [
+          "No caching mechanisms (e.g., no Cache node) for repeated API calls like 'Get many users' or 'Get many work items', leading to potential redundant requests.",
+          "Workflow is linear, but without optimizations, it may not handle high-frequency triggers efficiently."
+        ],
+        "strengths": [
+          "Simple vertical flow minimizes unnecessary computations."
+        ],
+        "recommendations": [
+          "Add caching for static or infrequently changing data, such as organization or spaces.",
+          "Optimize node configurations for batch processing if dealing with multiple items."
+        ]
+      },
+      "maintainability": {
+        "score": 70,
+        "issues": [
+          "Node names are descriptive (e.g., 'Get the logged-in user's organization'), but sticky notes lack detailed purposes.",
+          "Parameters are not detailed in the analysis, but without intelligence, it's hard to confirm if they are well-configured."
+        ],
+        "strengths": [
+          "Clear, descriptive node names make the workflow relatively easy to follow.",
+          "Sticky notes provide basic sectioning, improving readability."
+        ],
+        "recommendations": [
+          "Enhance sticky notes with more detailed descriptions of each section's purpose.",
+          "Use variables or constants for reusable parameters to avoid hardcoding."
+        ]
+      },
+      "best_practices": {
+        "score": 50,
+        "issues": [
+          "No evidence of following node-specific best practices, as intelligence coverage is 0%.",
+          "Potential overuse of sticky notes; they should be used sparingly for clarity, not as placeholders."
+        ],
+        "strengths": [
+          "Workflow avoids common mistakes like infinite loops in this simple setup.",
+          "Uses official N8N nodes for Kitemaker, adhering to standard integrations."
+        ],
+        "recommendations": [
+          "Review N8N documentation for Kitemaker nodes to ensure configurations follow best practices (e.g., proper API versioning).",
+          "Minimize sticky notes and use them only for critical annotations."
+        ]
+      },
+      "scalability": {
+        "score": 45,
+        "issues": [
+          "Vertical architecture with 13 nodes may not scale well for increased load; sequential processing could bottleneck.",
+          "No load-balancing or parallel processing nodes for operations like 'Get many work items'."
+        ],
+        "strengths": [
+          "Simple structure allows for easy horizontal scaling by duplicating workflows if needed."
+        ],
+        "recommendations": [
+          "Introduce parallel branches for independent operations (e.g., fetching users and spaces simultaneously).",
+          "Monitor performance under load and consider migrating to a more scalable architecture if usage grows."
+        ]
+      },
+      "innovation": {
+        "score": 60,
+        "issues": [
+          "Workflow is a basic MCP server for Kitemaker, lacking innovative features like custom logic or integrations.",
+          "No use of advanced N8N features (e.g., AI nodes, custom code) to enhance functionality."
+        ],
+        "strengths": [
+          "Integrates Kitemaker effectively as an MCP server, providing a straightforward tool interface.",
+          "Sticky notes could be innovatively used for dynamic documentation if enhanced."
+        ],
+        "recommendations": [
+          "Incorporate innovative elements like conditional logic or AI-driven decision-making for work item creation.",
+          "Explore adding custom nodes or webhooks for more interactive MCP capabilities."
+        ]
+      }
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after Kitemaker nodes to catch API failures.",
+        "node_id": "3. Get the logged-in user's organization",
+        "fix_details": {
+          "action": "Insert an Error Trigger node connected to the output of this node, with retry logic enabled."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Implement caching for repeated data fetches.",
+        "node_id": "5. Get many spaces",
+        "fix_details": {
+          "action": "Add a Cache node before this node to store and retrieve space data based on a key."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "critical",
+        "description": "Validate inputs to prevent injection attacks.",
+        "node_id": "9. Create a work item",
+        "fix_details": {
+          "action": "Insert a Set node or Code node to sanitize and validate input data before passing to this node."
+        }
+      },
+      {
+        "type": "scalability",
+        "priority": "medium",
+        "description": "Parallelize independent fetches.",
+        "node_id": "5. Get many spaces",
+        "fix_details": {
+          "action": "Restructure to run 'Get many spaces' and 'Get many users' in parallel branches."
+        }
+      }
+    ],
+    "migration_recommendation": "improve_then_migrate",
+    "estimated_improvement_time": "4-6 hours"
+  }
+}

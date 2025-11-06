@@ -1,0 +1,528 @@
+{
+  "workflow": {
+    "id": "RzYuqoepxixCfKzi",
+    "meta": {
+      "instanceId": "b79da95dcb1b69eebc3470f6fd833d7e53e389c229c716386bdb8e7c291ad2b9",
+      "templateCredsSetupCompleted": true
+    },
+    "name": "\ud83e\udd16 Facebook MCP AI Agent \u2013 Read, Reply & Manage Comments with GPT-4o",
+    "tags": [
+      {
+        "id": "gopnerJXNBoZBzMX",
+        "name": "Fluxo a Venda",
+        "createdAt": "2025-05-06T11:24:14.834Z",
+        "updatedAt": "2025-05-06T11:24:14.834Z"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "7b135530-930b-4934-b51b-ba122a4a96de",
+        "name": "When chat message received",
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "position": [
+          -160,
+          360
+        ],
+        "webhookId": "02e0ef01-c4c3-4907-a0cd-02dd35fd3767",
+        "parameters": {},
+        "typeVersion": 1.1
+      },
+      {
+        "id": "92670dfa-9ee0-439c-ba0c-6e0654d09221",
+        "name": "AI Agent",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "position": [
+          340,
+          260
+        ],
+        "parameters": {},
+        "typeVersion": 1.9
+      },
+      {
+        "id": "c9d4143f-9999-4508-aaf1-1bfc73d2e151",
+        "name": "Simple Memory",
+        "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+        "position": [
+          400,
+          420
+        ],
+        "parameters": {},
+        "typeVersion": 1.3
+      },
+      {
+        "id": "4bc247c3-158e-4ac5-87a0-788b7e4c409b",
+        "name": "\ud83d\uddc2\ufe0f MCP Facebook",
+        "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+        "position": [
+          1120,
+          140
+        ],
+        "webhookId": "6310da96-934d-4702-addc-b8964c1ed925",
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "09472a7f-1837-4a2c-afff-fad1af5be1d3",
+        "name": "MCP Facebook",
+        "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+        "position": [
+          740,
+          420
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "12e55d12-b4bb-40e1-81be-b81d054b734e",
+        "name": "Search Media",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "position": [
+          960,
+          380
+        ],
+        "parameters": {},
+        "typeVersion": 1.1
+      },
+      {
+        "id": "847411aa-36f2-4b45-99d7-434f1c31e0c2",
+        "name": "Facebook Mapping",
+        "type": "n8n-nodes-base.set",
+        "position": [
+          60,
+          360
+        ],
+        "parameters": {},
+        "typeVersion": 3.4
+      },
+      {
+        "id": "cc4b97bf-0d87-487a-8fa6-b3de88df03cb",
+        "name": "Media Details",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "position": [
+          1100,
+          380
+        ],
+        "parameters": {},
+        "typeVersion": 1.1
+      },
+      {
+        "id": "c69f529d-cc97-436a-b4fa-08538cfcf306",
+        "name": "Search Comment",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "position": [
+          1240,
+          380
+        ],
+        "parameters": {},
+        "typeVersion": 1.1
+      },
+      {
+        "id": "40990183-0945-42d2-8239-e938105c90b5",
+        "name": "Reply Comment",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "position": [
+          1380,
+          380
+        ],
+        "parameters": {},
+        "typeVersion": 1.1
+      },
+      {
+        "id": "1c7f4401-b266-4b15-bc6c-05f6f12f1681",
+        "name": "Send Direct Message",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "position": [
+          1520,
+          380
+        ],
+        "parameters": {},
+        "typeVersion": 1.1
+      },
+      {
+        "id": "55ddf8c6-d183-4207-8606-b1c22fea492f",
+        "name": "Sticky Note",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          0,
+          140
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "17dbdf19-f4c1-4c7d-a99e-949a864fc45e",
+        "name": "Sticky Note1",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          700,
+          140
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "0b823254-01c2-4a7f-8193-086dc68aefba",
+        "name": "Sticky Note2",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          240,
+          140
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "4d07313d-220c-4e4d-ba55-aacbb561353b",
+        "name": "Chat Model",
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "position": [
+          280,
+          420
+        ],
+        "parameters": {},
+        "typeVersion": 1.2
+      },
+      {
+        "id": "0faba95f-b99e-4adb-8397-8f9f7f2194a9",
+        "name": "Sticky Note3",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          900,
+          0
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "16a71afb-7d4f-4eec-a784-31f5bb8ba2c9",
+        "name": "Sticky Note4",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {
+          "content": ""
+        },
+        "typeVersion": 1
+      }
+    ],
+    "active": false,
+    "pinData": {},
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "versionId": "2be54b97-2a5e-4fe5-ade2-4f9541b6ea24",
+    "connections": {
+      "Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "MCP Facebook": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Search Media": {
+        "ai_tool": [
+          [
+            {
+              "node": "\ud83d\uddc2\ufe0f MCP Facebook",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Media Details": {
+        "ai_tool": [
+          [
+            {
+              "node": "\ud83d\uddc2\ufe0f MCP Facebook",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Reply Comment": {
+        "ai_tool": [
+          [
+            {
+              "node": "\ud83d\uddc2\ufe0f MCP Facebook",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Simple Memory": {
+        "ai_memory": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Search Comment": {
+        "ai_tool": [
+          [
+            {
+              "node": "\ud83d\uddc2\ufe0f MCP Facebook",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Facebook Mapping": {
+        "main": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Send Direct Message": {
+        "ai_tool": [
+          [
+            {
+              "node": "\ud83d\uddc2\ufe0f MCP Facebook",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When chat message received": {
+        "main": [
+          [
+            {
+              "node": "Facebook Mapping",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "original_file": "C:\\Users\\DELL\\n8n-workflow-scraper\\scraped-workflows\\workflows\\AI\\automated-facebook-comment-management-with-gpt-4o-and-langchain-6ss6l1.json",
+    "category": "AI",
+    "category_confidence": 0.4137587238285144,
+    "quality_score": 55.0,
+    "quality_tier": "silver",
+    "evaluated_at": "2025-10-02T10:25:45.462192",
+    "evaluator": "grok-code-fast-1",
+    "cost": 0.12127690000000003,
+    "nodes_count": 17,
+    "batch": 2
+  },
+  "evaluation": {
+    "overall_score": 55.0,
+    "confidence": 0.85,
+    "quality_tier": "silver",
+    "dimensions": {
+      "architecture": {
+        "score": 60,
+        "issues": [
+          "Vertical architecture is used, but with 17 nodes, it may lead to a long chain that's hard to follow; consider modularizing into sub-workflows.",
+          "Connections appear linear, but without a visual diagram, it's unclear if there are parallel paths or loops for efficiency."
+        ],
+        "strengths": [
+          "Nodes are connected in a logical sequence from trigger to actions, following a basic flow.",
+          "Uses MCP triggers and clients appropriately for Facebook integration."
+        ],
+        "recommendations": [
+          "Break down into smaller sub-workflows for better organization, e.g., separate comment handling from media search.",
+          "Add conditional branches for different scenarios like successful vs. failed API calls."
+        ]
+      },
+      "error_handling": {
+        "score": 30,
+        "issues": [
+          "No error handling nodes (e.g., Error Trigger or Try-Catch) visible in the node list.",
+          "HTTP request nodes (Search Media, Media Details, etc.) lack retry mechanisms, which could fail on transient errors.",
+          "No fallback logic for API failures, potentially causing the workflow to halt abruptly."
+        ],
+        "strengths": [
+          "Basic flow assumes success, but no explicit handling noted."
+        ],
+        "recommendations": [
+          "Add Error Trigger nodes after HTTP requests to catch and log errors.",
+          "Implement retry logic in HTTP request nodes with exponential backoff.",
+          "Use Switch nodes to handle different error codes and provide user-friendly responses."
+        ]
+      },
+      "security": {
+        "score": 50,
+        "issues": [
+          "Credentials for Facebook API and OpenAI are assumed configured, but no validation of inputs in nodes like HTTP requests.",
+          "Potential exposure of sensitive data if inputs aren't sanitized, especially in AI Agent and Chat Model nodes.",
+          "No mention of rate limiting or API key rotation, which could lead to abuse."
+        ],
+        "strengths": [
+          "Uses MCP for secure client interactions with Facebook.",
+          "OpenAI Chat Model likely uses secure API keys."
+        ],
+        "recommendations": [
+          "Add input validation in Set nodes (e.g., Facebook Mapping) to check for malicious data.",
+          "Implement rate limiting in HTTP request nodes to prevent API abuse.",
+          "Ensure credentials are stored securely and rotated periodically."
+        ]
+      },
+      "performance": {
+        "score": 45,
+        "issues": [
+          "No caching mentioned, so repeated API calls (e.g., Search Media) may be inefficient.",
+          "HTTP requests are synchronous without parallelism, potentially slowing down the workflow.",
+          "Memory Buffer Window is used, but without details, it might not be optimized for large conversations."
+        ],
+        "strengths": [
+          "Simple Memory node helps maintain context in AI interactions.",
+          "Vertical flow minimizes unnecessary computations."
+        ],
+        "recommendations": [
+          "Add caching for API responses using Cache nodes to reduce redundant calls.",
+          "Use parallel execution where possible, e.g., for multiple comment replies.",
+          "Optimize Chat Model settings for faster responses, like adjusting temperature or max tokens."
+        ]
+      },
+      "maintainability": {
+        "score": 40,
+        "issues": [
+          "Node names are generic (e.g., 'Facebook Mapping', 'Sticky Note1'), not descriptive enough for quick understanding.",
+          "Multiple Sticky Notes suggest documentation attempts, but they clutter the canvas and aren't integrated.",
+          "Parameters in HTTP requests aren't detailed, assuming defaults which may not be optimal."
+        ],
+        "strengths": [
+          "Workflow has a clear purpose: managing Facebook comments with AI.",
+          "Sticky Notes provide some intent, like grouping sections."
+        ],
+        "recommendations": [
+          "Rename nodes descriptively, e.g., 'Map Facebook Comment Data' instead of 'Facebook Mapping'.",
+          "Replace Sticky Notes with proper comments in nodes or use Workflow Annotations.",
+          "Document parameters in HTTP nodes for future maintainers."
+        ]
+      },
+      "best_practices": {
+        "score": 50,
+        "issues": [
+          "HTTP request nodes don't specify timeouts or headers, missing best practices for API calls.",
+          "AI Agent and Chat Model lack custom prompts or fine-tuning, potentially leading to generic responses.",
+          "No versioning or testing nodes, common in production workflows."
+        ],
+        "strengths": [
+          "Uses Langchain nodes appropriately for AI-driven tasks.",
+          "MCP integration follows modern tool-calling patterns."
+        ],
+        "recommendations": [
+          "Add timeouts and custom headers in HTTP request nodes.",
+          "Customize AI prompts in Chat Model for better relevance to Facebook comments.",
+          "Include Test Workflow nodes for validation before deployment."
+        ]
+      },
+      "scalability": {
+        "score": 55,
+        "issues": [
+          "Linear vertical flow may not scale with high comment volumes; no queuing or batching.",
+          "Memory Buffer Window could overflow with long conversations, impacting performance.",
+          "No load balancing or distributed execution for increased traffic."
+        ],
+        "strengths": [
+          "MCP and HTTP nodes can handle moderate loads if optimized.",
+          "AI Agent can process multiple interactions sequentially."
+        ],
+        "recommendations": [
+          "Implement queuing with Queue nodes for comment processing.",
+          "Use larger memory buffers or external storage for long-term context.",
+          "Consider horizontal scaling by splitting into micro-workflows."
+        ]
+      },
+      "innovation": {
+        "score": 70,
+        "issues": [
+          "While using GPT-4o and MCP is innovative, the workflow is fairly standard without novel integrations.",
+          "No advanced features like multi-modal AI or custom tools beyond basic HTTP."
+        ],
+        "strengths": [
+          "Integrates AI (GPT-4o) with social media (Facebook) via MCP for automated responses, which is cutting-edge.",
+          "Uses Langchain for agent-based interactions, promoting intelligent automation."
+        ],
+        "recommendations": [
+          "Explore adding image analysis in Media Details using vision models.",
+          "Incorporate sentiment analysis or custom NLP tools for smarter replies.",
+          "Experiment with multi-agent setups for complex comment moderation."
+        ]
+      }
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after HTTP request nodes to catch API failures.",
+        "node_id": "Search Media",
+        "fix_details": {
+          "action": "Insert Error Trigger node connected to the output of Search Media, with retry logic enabled."
+        }
+      },
+      {
+        "type": "maintainability",
+        "priority": "medium",
+        "description": "Rename generic nodes for clarity.",
+        "node_id": "Facebook Mapping",
+        "fix_details": {
+          "action": "Change node name to 'Map Incoming Facebook Comment Data' and add inline comments."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Add caching to reduce API calls.",
+        "node_id": "Media Details",
+        "fix_details": {
+          "action": "Insert Cache node before Media Details to store and retrieve media info based on ID."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "critical",
+        "description": "Validate inputs to prevent injection attacks.",
+        "node_id": "AI Agent",
+        "fix_details": {
+          "action": "Add input sanitization in the Set node before AI Agent using expression filters."
+        }
+      }
+    ],
+    "migration_recommendation": "improve_then_migrate",
+    "estimated_improvement_time": "4-6 hours"
+  }
+}

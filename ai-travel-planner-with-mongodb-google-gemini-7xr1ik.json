@@ -1,0 +1,577 @@
+{
+  "workflow": {
+    "id": "znRwva47HzXesOYk",
+    "meta": {
+      "instanceId": "3be30861c4ebf6c36b608a223df086e2f2ea418bc2f7f7a746319c3c22897aa9",
+      "templateCredsSetupCompleted": true
+    },
+    "name": "Travel AssistantAgent",
+    "tags": [],
+    "nodes": [
+      {
+        "id": "3742b914-9f9d-4c6e-bfdf-f494295182a3",
+        "name": "When chat message received",
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "position": [
+          0,
+          0
+        ],
+        "webhookId": "c9b390dc-3f6a-475c-b168-28f3accd20a7",
+        "parameters": {
+          "options": {}
+        },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "5b7fcae2-78ab-45f7-933b-3acf993832e6",
+        "name": "MongoDB Chat Memory",
+        "type": "@n8n/n8n-nodes-langchain.memoryMongoDbChat",
+        "position": [
+          320,
+          220
+        ],
+        "parameters": {
+          "databaseName": "test"
+        },
+        "credentials": {
+          "mongoDb": {
+            "id": "aEhI0wdmVEJ8c82Z",
+            "name": "MongoDB account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "eaba53fd-fc1c-404f-8720-eeea6cde088e",
+        "name": "Google Gemini Chat Model",
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "position": [
+          180,
+          240
+        ],
+        "parameters": {
+          "options": {},
+          "modelName": "models/gemini-2.0-flash"
+        },
+        "credentials": {
+          "googlePalmApi": {
+            "id": "7DECNCZTsje1tSvf",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "af440c3f-e81f-4e40-a349-6272c3b23517",
+        "name": "MongoDB Atlas Vector Store",
+        "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
+        "position": [
+          480,
+          280
+        ],
+        "parameters": {
+          "mode": "retrieve-as-tool",
+          "topK": 10,
+          "options": {},
+          "toolName": "PointofinterestKB",
+          "metadata_field": "description",
+          "mongoCollection": {
+            "__rl": true,
+            "mode": "list",
+            "value": "points_of_interest",
+            "cachedResultName": "points_of_interest"
+          },
+          "toolDescription": "The list of Points of Interest from the database.",
+          "vectorIndexName": "vector_index"
+        },
+        "credentials": {
+          "mongoDb": {
+            "id": "aEhI0wdmVEJ8c82Z",
+            "name": "MongoDB account"
+          }
+        },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "17f2e6f3-d79c-4588-b4ee-bbfff61bc38d",
+        "name": "Embeddings OpenAI",
+        "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+        "position": [
+          580,
+          500
+        ],
+        "parameters": {
+          "options": {}
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "z5h5wLH9yHstZl24",
+            "name": "OpenAi account"
+          }
+        },
+        "typeVersion": 1.2
+      },
+      {
+        "id": "fc7ab263-9b1c-4e98-ae51-74248b91fe82",
+        "name": "Sticky Note",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          780,
+          -420
+        ],
+        "parameters": {
+          "width": 900,
+          "height": 960,
+          "content": "## AI Traveling Agent Powered by MongoDB Atlas for Memory and vector search.\n\n**Atlas MongoDB Memory Node**\n\n- The memory node allows the agent to persist and retrieve conversation based on threads in the database. It uses MongoDB felxible store capabilities to allow different type of threads and messages (Image, audio, video etc.) to be stored easily and effectivley \n\n\n**Atlas MongoDB Vector Store Node**\n\n- Atlas Vector Store tool allows the agent to get up to date points of interest from our vector store database populated and embedded with OpenAI Embeddings.\n\n\n### You will need to:\n1. Setup your Google API Credentials for the Gemini LLM\n2. Setup your OpenAI Credentials for the OpenAI embedding nodes.\n3. [MongoDB Atlas project and Cluster](https://www.mongodb.com/docs/atlas/tutorial/create-new-cluster/). Get a hold of the connection string and make sure to have your IP Access list enabled (for ease of testing try `0.0.0.0/0` access.\n4. Setup you MongoDB Credentials account with the correct connection string and database name.\n5. **Vector Search Tool** - uses Atlas Vector Search index you will create on your database for the `points_of_interest` collection:\n\n```\n// index name : \"vector_index\"\n// If you change an embedding provider make sure the numDimensions correspond to the model.\n{\n  \"fields\": [\n    {\n      \"type\": \"vector\",\n      \"path\": \"embedding\",\n      \"numDimensions\": 1536,\n      \"similarity\": \"cosine\"\n    }\n  ]\n}\n```\n\nOnce all of that is configured you will need to send the loading webhook with some data points (see example).\n\nThis should create vectorised data in  `points_of_interest` collection.\n\nOnce you have data points there try to ask the Agent questions about the data points and test the response. Eg. \"Where should I go for a romantic getaway?\"\n\n**Additional Resources**\n- [MongoDB Atlas Vector Search](https://www.mongodb.com/docs/atlas/atlas-vector-search/tutorials/vector-search-quick-start/?utm=n8n.io)\n- [n8n Atlas Vector Search docs](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoremongodbatlas?utm=n8n.io)"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "5a0353d2-410a-4059-8dc1-56a438e22cea",
+        "name": "AI Traveling Planner Agent",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "position": [
+          220,
+          0
+        ],
+        "parameters": {
+          "options": {
+            "maxIterations": 10,
+            "systemMessage": "You are a helpful assistant for a trip planner. You have a vector search capability to locate points of interest, Use it and don't invent much."
+          }
+        },
+        "typeVersion": 1.8
+      },
+      {
+        "id": "e4c2c92d-6291-42c8-9d03-5abfe1a85a83",
+        "name": "Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "position": [
+          420,
+          760
+        ],
+        "webhookId": "a48d5121-b453-4b5e-aa30-88ba3e16b931",
+        "parameters": {
+          "path": "ingestData",
+          "options": {
+            "rawBody": true
+          },
+          "httpMethod": "POST"
+        },
+        "typeVersion": 2
+      },
+      {
+        "id": "8ec1fa93-3eea-44e2-a66d-7f1e961cfa94",
+        "name": "Default Data Loader",
+        "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+        "position": [
+          520,
+          1200
+        ],
+        "parameters": {
+          "options": {},
+          "jsonData": "={{ $json.body.raw_body.point_of_interest.title }} - {{ $json.body.raw_body.point_of_interest.description }}",
+          "jsonMode": "expressionData"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "f723cca8-7bf4-4c93-932f-b558d21e8a4d",
+        "name": "Recursive Character Text Splitter",
+        "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+        "position": [
+          1060,
+          1400
+        ],
+        "parameters": {
+          "options": {}
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "c4a5f12e-de9b-44d0-93b2-a06cb56a1a91",
+        "name": "MongoDB Atlas Vector Store1",
+        "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
+        "position": [
+          740,
+          880
+        ],
+        "parameters": {
+          "mode": "insert",
+          "options": {},
+          "metadata_field": "description",
+          "mongoCollection": {
+            "__rl": true,
+            "mode": "list",
+            "value": "points_of_interest",
+            "cachedResultName": "points_of_interest"
+          },
+          "vectorIndexName": "vector_index",
+          "embeddingBatchSize": 1
+        },
+        "credentials": {
+          "mongoDb": {
+            "id": "aEhI0wdmVEJ8c82Z",
+            "name": "MongoDB account"
+          }
+        },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "cf3b0e71-73d5-4a54-bb64-a2d951cd7726",
+        "name": "Embeddings OpenAI1",
+        "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+        "position": [
+          800,
+          1100
+        ],
+        "parameters": {
+          "options": {}
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "z5h5wLH9yHstZl24",
+            "name": "OpenAi account"
+          }
+        },
+        "typeVersion": 1.2
+      },
+      {
+        "id": "386538c3-81e7-4797-a4b6-81dea83fa778",
+        "name": "Sticky Note1",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -440,
+          940
+        ],
+        "parameters": {
+          "width": 720,
+          "height": 360,
+          "content": "## CURL Command to Ingest Data.\n\nHere is an example of how you can load data into your webhook once its active and ready to get requests.\n\n```\ncurl -X POST \"https://<account>.app.n8n.cloud/webhook-test/ingestData\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"raw_body\": {\n      \"point_of_interest\": {\n        \"title\": \"Eiffel Tower\",\n        \"description\": \"Iconic iron lattice tower located on the Champ de Mars in Paris, France.\"\n      }\n    }\n  }'\n```"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "0aa2676e-9f93-4b71-bd69-a4a8b2069496",
+        "name": "Sticky Note2",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1040,
+          620
+        ],
+        "parameters": {
+          "width": 720,
+          "height": 360,
+          "content": "## Vector Search data ingestion\n\nUsing webhook to ingest data to the MongoDB `points_of_interest` \ncollection. \n\nThis can be done in other ways like loading from wbesites/git/files or other supported data sources."
+        },
+        "typeVersion": 1
+      }
+    ],
+    "active": true,
+    "pinData": {},
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "versionId": "4600a0b5-b04c-4bd7-9a71-66b498cf1cbb",
+    "connections": {
+      "Webhook": {
+        "main": [
+          [
+            {
+              "node": "MongoDB Atlas Vector Store1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings OpenAI": {
+        "ai_embedding": [
+          [
+            {
+              "node": "MongoDB Atlas Vector Store",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings OpenAI1": {
+        "ai_embedding": [
+          [
+            {
+              "node": "MongoDB Atlas Vector Store1",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Default Data Loader": {
+        "ai_document": [
+          [
+            {
+              "node": "MongoDB Atlas Vector Store1",
+              "type": "ai_document",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "MongoDB Chat Memory": {
+        "ai_memory": [
+          [
+            {
+              "node": "AI Traveling Planner Agent",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "AI Traveling Planner Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "MongoDB Atlas Vector Store": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Traveling Planner Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When chat message received": {
+        "main": [
+          [
+            {
+              "node": "AI Traveling Planner Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Recursive Character Text Splitter": {
+        "ai_textSplitter": [
+          [
+            {
+              "node": "Default Data Loader",
+              "type": "ai_textSplitter",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "metadata": {
+      "quality_score": 78.2,
+      "quality_rating": "Fair",
+      "architecture_score": 91.25,
+      "error_handling_score": 52.5,
+      "security_score": 83.75,
+      "performance_score": 82.5,
+      "maintainability_score": 88.75,
+      "category": "AI",
+      "original_source": "csv_import",
+      "csv_score": "7",
+      "extracted_at": "2025-09-27T00:33:50.139Z"
+    }
+  },
+  "metadata": {
+    "original_file": "C:\\Users\\DELL\\n8n-workflow-scraper\\scraped-workflows\\workflows\\AI\\ai-travel-planner-with-mongodb-google-gemini-7xr1ik.json",
+    "category": "AI",
+    "category_confidence": 0.31223267750213857,
+    "quality_score": 45.0,
+    "quality_tier": "bronze",
+    "evaluated_at": "2025-10-02T03:06:14.218049",
+    "evaluator": "grok-code-fast-1",
+    "cost": 1.1347826999999995,
+    "nodes_count": 14,
+    "batch": 1
+  },
+  "evaluation": {
+    "overall_score": 45.0,
+    "confidence": 0.7,
+    "quality_tier": "bronze",
+    "dimensions": {
+      "architecture": {
+        "score": 50,
+        "issues": [
+          "Vertical architecture is used, but with 14 nodes, it may lead to long chains that are hard to manage; connections appear sequential but lack branching for error handling or parallel processing.",
+          "No clear separation of concerns; data loading, embedding, and agent logic are mixed without modular grouping."
+        ],
+        "strengths": [
+          "Nodes are connected in a logical flow from trigger to agent response.",
+          "Uses appropriate vector store and embeddings for AI functionality."
+        ],
+        "recommendations": [
+          "Consider horizontal architecture for better modularity, grouping data preparation nodes separately from execution nodes.",
+          "Add conditional routing to handle different user intents."
+        ]
+      },
+      "error_handling": {
+        "score": 20,
+        "issues": [
+          "No error handling nodes (e.g., no 'Error Trigger' or 'Retry' nodes) present in the workflow.",
+          "Langchain and MongoDB nodes can fail silently or throw errors without retries or fallbacks.",
+          "No validation for inputs like chat messages or webhook data."
+        ],
+        "strengths": [
+          "Basic flow assumes successful execution, which is a starting point."
+        ],
+        "recommendations": [
+          "Add 'Error Trigger' nodes after critical steps like MongoDB operations and AI model calls.",
+          "Implement retry mechanisms for API calls to OpenAI and Google Gemini.",
+          "Use 'Switch' nodes to validate inputs before processing."
+        ]
+      },
+      "security": {
+        "score": 30,
+        "issues": [
+          "Credentials for MongoDB, OpenAI, and Google Gemini are assumed configured, but no validation mentioned; potential for credential exposure if not handled properly.",
+          "Webhook node lacks authentication or rate limiting, exposing to unauthorized access.",
+          "No input sanitization for user chat messages, risking injection attacks in AI prompts."
+        ],
+        "strengths": [
+          "Uses secure services like MongoDB Atlas and OpenAI, which have built-in security."
+        ],
+        "recommendations": [
+          "Enable authentication on the Webhook node (e.g., API key or OAuth).",
+          "Sanitize inputs using 'Function' nodes to prevent prompt injection.",
+          "Ensure credentials are stored securely in N8N's credential manager."
+        ]
+      },
+      "performance": {
+        "score": 40,
+        "issues": [
+          "No caching implemented; repeated embeddings or vector searches may be inefficient.",
+          "Sequential processing of nodes could be slow for large datasets or concurrent users.",
+          "Text splitter and embeddings are run without optimization for batch processing."
+        ],
+        "strengths": [
+          "Uses efficient vector stores for retrieval, reducing real-time computation."
+        ],
+        "recommendations": [
+          "Add caching for embeddings using 'Cache' nodes to avoid recomputation.",
+          "Optimize MongoDB queries with indexing hints if possible.",
+          "Consider asynchronous execution for non-blocking operations."
+        ]
+      },
+      "maintainability": {
+        "score": 35,
+        "issues": [
+          "Node names are generic (e.g., 'Embeddings OpenAI1', 'Sticky Note2'); not descriptive.",
+          "Sticky notes are present but likely not explanatory; workflow lacks comments or documentation.",
+          "Parameters are not detailed, making it hard to understand configurations."
+        ],
+        "strengths": [
+          "Clear node types indicate purpose (e.g., chat trigger, agent).",
+          "Total nodes are manageable at 14."
+        ],
+        "recommendations": [
+          "Rename nodes descriptively, e.g., 'User Chat Trigger' instead of default.",
+          "Use sticky notes effectively for documentation or add 'Comment' nodes.",
+          "Document parameter settings in workflow notes."
+        ]
+      },
+      "best_practices": {
+        "score": 45,
+        "issues": [
+          "No use of 'Wait' nodes for pacing API calls, potentially hitting rate limits.",
+          "Duplicate nodes (e.g., two Embeddings OpenAI) suggest copy-paste without refactoring.",
+          "No versioning or testing nodes; workflow may break with updates."
+        ],
+        "strengths": [
+          "Follows Langchain best practices for agent setup with memory and vector store."
+        ],
+        "recommendations": [
+          "Add 'Wait' nodes between API-intensive steps.",
+          "Refactor duplicates into reusable sub-workflows.",
+          "Implement workflow versioning and use 'Test' nodes for validation."
+        ]
+      },
+      "scalability": {
+        "score": 50,
+        "issues": [
+          "Vertical architecture limits parallel processing; high load could cause bottlenecks in sequential nodes.",
+          "MongoDB operations may not scale well without connection pooling or sharding considerations.",
+          "No load balancing for multiple users triggering the webhook."
+        ],
+        "strengths": [
+          "Vector stores and embeddings are scalable with cloud providers like MongoDB Atlas."
+        ],
+        "recommendations": [
+          "Switch to horizontal architecture for parallel branches.",
+          "Use N8N's queue system for handling multiple executions.",
+          "Monitor and optimize MongoDB for high throughput."
+        ]
+      },
+      "innovation": {
+        "score": 60,
+        "issues": [
+          "Workflow is standard Langchain setup; lacks creative use of nodes for unique features.",
+          "No integration with external APIs for real-time travel data (e.g., flights, hotels)."
+        ],
+        "strengths": [
+          "Combines chat memory, vector search, and AI agent for a coherent travel assistant.",
+          "Uses multiple AI models (Gemini and OpenAI) for potentially better responses."
+        ],
+        "recommendations": [
+          "Incorporate innovative nodes like 'HTTP Request' for live data fetching.",
+          "Experiment with custom tools in the agent for personalized recommendations."
+        ]
+      }
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after AI model calls to catch API failures.",
+        "node_id": "Google Gemini Chat Model",
+        "fix_details": {
+          "action": "Insert 'Error Trigger' node connected to the output of the Gemini node."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "critical",
+        "description": "Enable authentication on the Webhook node to prevent unauthorized access.",
+        "node_id": "Webhook",
+        "fix_details": {
+          "action": "Configure Webhook with API key authentication in node settings."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Add caching for embeddings to reduce computation time.",
+        "node_id": "Embeddings OpenAI",
+        "fix_details": {
+          "action": "Insert 'Cache' node before the Embeddings node to store results."
+        }
+      },
+      {
+        "type": "maintainability",
+        "priority": "low",
+        "description": "Rename nodes for clarity.",
+        "node_id": "Embeddings OpenAI1",
+        "fix_details": {
+          "action": "Change node name to 'Travel Data Embeddings' in node properties."
+        }
+      }
+    ],
+    "migration_recommendation": "improve_then_migrate",
+    "estimated_improvement_time": "2-4 hours"
+  }
+}

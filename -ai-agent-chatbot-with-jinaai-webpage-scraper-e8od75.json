@@ -1,0 +1,406 @@
+{
+  "workflow": {
+    "id": "xEij0kj2I1DHbL3I",
+    "meta": {
+      "instanceId": "31e69f7f4a77bf465b805824e303232f0227212ae922d12133a0f96ffeab4fef"
+    },
+    "name": "\ud83c\udf10\ud83e\ude9b AI Agent Chatbot with Jina.ai Webpage Scraper",
+    "tags": [],
+    "nodes": [
+      {
+        "id": "ea5369a0-4283-46fc-b738-8cf787181e93",
+        "name": "When chat message received",
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "position": [
+          0,
+          -280
+        ],
+        "webhookId": "e298fd8c-2af9-4db2-bb8b-94d70fbc2938",
+        "parameters": {
+          "options": {}
+        },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "07c8338b-d47e-467b-996f-99c9fbe67f89",
+        "name": "Sticky Note14",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          240,
+          -460
+        ],
+        "parameters": {
+          "color": 5,
+          "width": 680,
+          "height": 700,
+          "content": "## AI Agent Chatbot with Jina.ai Web Scraper\n### https://jina.ai/\n"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "00da1c9b-b5f7-42b8-8bdd-938a8daf7410",
+        "name": "Window Buffer Memory",
+        "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+        "position": [
+          520,
+          20
+        ],
+        "parameters": {},
+        "typeVersion": 1.3
+      },
+      {
+        "id": "f14426ee-709d-4651-a0b7-e823bff5ee74",
+        "name": "Jina.ai Web Scraping Agent",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "position": [
+          440,
+          -280
+        ],
+        "parameters": {
+          "text": "=You have access to a powerful scrape_website tool that can retrieve real-time web content. Use this tool to extract any needed information from the website, analyze the data, and craft a clear, accurate, and concise answer to the user's question. Be sure to include relevant details from the scraped content. \n\nUser Question: {{ $json.chatInput }}\n\n",
+          "options": {},
+          "promptType": "define"
+        },
+        "typeVersion": 1.7
+      },
+      {
+        "id": "3ce16f26-073b-4ccc-a65f-2ca870a9bd16",
+        "name": "gpt-4o-mini",
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "position": [
+          340,
+          20
+        ],
+        "parameters": {
+          "model": {
+            "__rl": true,
+            "mode": "list",
+            "value": "gpt-4o-mini"
+          },
+          "options": {}
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "jEMSvKmtYfzAkhe6",
+            "name": "OpenAi account"
+          }
+        },
+        "typeVersion": 1.2
+      },
+      {
+        "id": "3a503859-ef0a-492d-81c6-37e4f0c4c25e",
+        "name": "Sticky Note",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          700,
+          -20
+        ],
+        "parameters": {
+          "width": 400,
+          "height": 320,
+          "content": "## Jina.ai Web Scraper Tool\n### No API Key Required\nhttps://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolhttprequest/"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "833d19c0-3a98-4cb0-a60c-412ea4d3a67a",
+        "name": "Sticky Note1",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -580,
+          -460
+        ],
+        "parameters": {
+          "color": 7,
+          "width": 460,
+          "height": 760,
+          "content": "The **AI Agent Chatbot with Jina.ai Web Scraper** workflow is a powerful automation designed to integrate real-time web scraping capabilities into an AI-driven chatbot. Here's how it works and why it's important:\n\n### **How It Works**\n1. **Chat Trigger**: The workflow begins when a user sends a chat message, triggering the \"When chat message received\" node.\n2. **AI Agent Processing**: The input is passed to the \"Jina.ai Web Scraping Agent,\" which uses advanced AI logic to interpret the user\u2019s query and determine the information needed.\n3. **Web Scraping**: The agent utilizes the \"HTTP Request\" node to scrape real-time data from a user-provided URL. This allows the chatbot to fetch and analyze live content from websites.\n4. **Memory Management**: The \"Window Buffer Memory\" node ensures context retention by storing and managing conversational history, enabling seamless interactions.\n5. **Language Model Integration**: The scraped data is processed using the \"gpt-4o-mini\" language model, which generates clear, accurate, and contextually relevant responses for the user.\n\n### **Why It's Important**\n- **Real-Time Information Retrieval**: This workflow empowers users to access up-to-date web content directly through a chatbot, eliminating the need for manual web searches.\n- **Enhanced User Experience**: By combining web scraping with conversational AI, it delivers precise answers tailored to user queries in real time.\n- **Versatility**: It can be applied across various domains, such as customer support, research, or data analysis, making it a valuable tool for businesses and individuals alike.\n- **Automation Efficiency**: Automating web scraping and response generation saves time and effort while ensuring accuracy.\n\n"
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "9e9cc23b-9881-44ab-bd20-5c9176ba1c43",
+        "name": "Sticky Note2",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -80,
+          -80
+        ],
+        "parameters": {
+          "color": 4,
+          "width": 280,
+          "height": 320,
+          "content": "## Try Me!\n\n### User prompt must include a URL with initial question.\n\n\nPrompt Example:\n\n\"How do I install Ollama on windows using the docs from https://github.com/ollama/ollama\""
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "a95efbfd-f908-4f7b-bf47-05b993250ed2",
+        "name": "Jina.ai Web Scraper Tool",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "position": [
+          860,
+          140
+        ],
+        "parameters": {
+          "url": "=https://r.jina.ai/{url}",
+          "toolDescription": "Call this tool to scrape a website.  Extract the URL from the user prompt.",
+          "placeholderDefinitions": {
+            "values": [
+              {
+                "name": "url",
+                "type": "string",
+                "description": "User provided website url"
+              }
+            ]
+          }
+        },
+        "typeVersion": 1.1
+      }
+    ],
+    "active": false,
+    "pinData": {},
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "versionId": "5ce466c5-2195-4038-9c52-cc7debd5f4b8",
+    "connections": {
+      "gpt-4o-mini": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Jina.ai Web Scraping Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Window Buffer Memory": {
+        "ai_memory": [
+          [
+            {
+              "node": "Jina.ai Web Scraping Agent",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Jina.ai Web Scraper Tool": {
+        "ai_tool": [
+          [
+            {
+              "node": "Jina.ai Web Scraping Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When chat message received": {
+        "main": [
+          [
+            {
+              "node": "Jina.ai Web Scraping Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "original_file": "C:\\Users\\DELL\\n8n-workflow-scraper\\scraped-workflows\\workflows\\AI\\-ai-agent-chatbot-with-jinaai-webpage-scraper-e8od75.json",
+    "category": "AI",
+    "category_confidence": 0.4048964218455744,
+    "quality_score": 45.0,
+    "quality_tier": "bronze",
+    "evaluated_at": "2025-10-02T01:13:09.519030",
+    "evaluator": "grok-code-fast-1",
+    "cost": 0.05001819999999999,
+    "nodes_count": 9,
+    "batch": 1
+  },
+  "evaluation": {
+    "overall_score": 45.0,
+    "confidence": 0.75,
+    "quality_tier": "bronze",
+    "dimensions": {
+      "architecture": {
+        "score": 60,
+        "issues": [
+          "Vertical architecture is used, but connections are linear and could benefit from branching for better flow.",
+          "Sticky notes are used excessively, which may clutter the canvas without adding functional value."
+        ],
+        "strengths": [
+          "Nodes are arranged in a logical sequence from trigger to response.",
+          "Clear start (chat trigger) and end (LLM output) points."
+        ],
+        "recommendations": [
+          "Consider using sub-workflows for modularity if the flow grows.",
+          "Remove unnecessary sticky notes or convert them to comments in node descriptions."
+        ]
+      },
+      "error_handling": {
+        "score": 20,
+        "issues": [
+          "No error handling nodes present, such as try-catch or error triggers.",
+          "No retry mechanisms for failed API calls to Jina.ai or OpenAI.",
+          "Potential failures in web scraping or LLM responses are not handled."
+        ],
+        "strengths": [
+          "Basic flow assumes success, which is simple for a prototype."
+        ],
+        "recommendations": [
+          "Add error handling nodes after API calls (e.g., HTTP Request tool and LLM).",
+          "Implement retry logic for transient failures.",
+          "Use a switch node to handle different error types."
+        ]
+      },
+      "security": {
+        "score": 40,
+        "issues": [
+          "No visible input validation for user messages or scraped data.",
+          "Credentials for OpenAI and Jina.ai are assumed configured, but no mention of secure storage or access controls.",
+          "Web scraping could expose to injection risks if URLs are not sanitized."
+        ],
+        "strengths": [
+          "Uses established services like OpenAI and Jina.ai, which have built-in security."
+        ],
+        "recommendations": [
+          "Add input validation nodes to sanitize user inputs and URLs.",
+          "Ensure credentials are stored securely in N8N's credential manager.",
+          "Implement rate limiting to prevent abuse."
+        ]
+      },
+      "performance": {
+        "score": 50,
+        "issues": [
+          "No caching implemented for repeated web scrapes or LLM responses.",
+          "Window buffer memory is used, but its size might not be optimized for performance.",
+          "Sequential execution may lead to bottlenecks under load."
+        ],
+        "strengths": [
+          "Simple node setup minimizes overhead.",
+          "GPT-4o-mini is a lightweight model choice."
+        ],
+        "recommendations": [
+          "Add caching nodes for web scrape results to avoid redundant requests.",
+          "Optimize memory buffer size based on expected conversation length.",
+          "Consider asynchronous execution for non-blocking operations."
+        ]
+      },
+      "maintainability": {
+        "score": 30,
+        "issues": [
+          "Node names are generic (e.g., 'gpt-4o-mini', 'Jina.ai Web Scraper Tool'), lacking descriptiveness.",
+          "Sticky notes are placeholders but not integrated into node logic.",
+          "Parameters are not detailed, making configuration hard to understand."
+        ],
+        "strengths": [
+          "Workflow is small (9 nodes), easy to overview.",
+          "Uses standard N8N nodes."
+        ],
+        "recommendations": [
+          "Rename nodes to be descriptive, e.g., 'User Chat Input Trigger' or 'Web Scraping Agent'.",
+          "Add detailed descriptions to nodes explaining their purpose.",
+          "Use variables and expressions for dynamic configurations."
+        ]
+      },
+      "best_practices": {
+        "score": 35,
+        "issues": [
+          "Sticky notes are not a best practice for documentation; use node comments instead.",
+          "No use of workflow tags or versioning.",
+          "Agent node might not follow best practices for prompt engineering or tool integration."
+        ],
+        "strengths": [
+          "Follows basic N8N conventions for node connections.",
+          "Uses LangChain integrations appropriately."
+        ],
+        "recommendations": [
+          "Replace sticky notes with node-level comments.",
+          "Implement workflow versioning and tags for better management.",
+          "Ensure agent prompts are optimized and tested for reliability."
+        ]
+      },
+      "scalability": {
+        "score": 40,
+        "issues": [
+          "Simple linear flow may not handle concurrent users well.",
+          "Web scraping and LLM calls are synchronous, limiting throughput.",
+          "No load balancing or queuing mechanisms."
+        ],
+        "strengths": [
+          "Small workflow size allows for easy scaling in N8N environments.",
+          "Cloud-based services (OpenAI, Jina.ai) can scale independently."
+        ],
+        "recommendations": [
+          "Introduce queuing for chat messages to handle bursts.",
+          "Use N8N's execution modes for better concurrency.",
+          "Monitor resource usage and add auto-scaling if deployed."
+        ]
+      },
+      "innovation": {
+        "score": 70,
+        "issues": [
+          "While using an AI agent for web scraping is creative, it's not highly novel.",
+          "Relies on standard tools without custom innovations."
+        ],
+        "strengths": [
+          "Integrates AI agent with web scraping for dynamic responses.",
+          "Combines memory and LLM for conversational context."
+        ],
+        "recommendations": [
+          "Experiment with custom tools or multi-agent setups for more innovation.",
+          "Incorporate advanced features like multi-modal inputs if applicable."
+        ]
+      }
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after the Jina.ai Web Scraper Tool node to catch scraping failures.",
+        "node_id": "Jina.ai Web Scraper Tool",
+        "fix_details": {
+          "add_node": "Error Trigger",
+          "connection": "On error, route to a notification or retry node."
+        }
+      },
+      {
+        "type": "maintainability",
+        "priority": "medium",
+        "description": "Rename generic nodes for clarity, e.g., change 'gpt-4o-mini' to 'OpenAI GPT-4o Mini LLM'.",
+        "node_id": "gpt-4o-mini",
+        "fix_details": {
+          "action": "Update node name in properties."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "critical",
+        "description": "Add input validation before the agent to sanitize user-provided URLs.",
+        "node_id": "When chat message received",
+        "fix_details": {
+          "add_node": "Function node for validation",
+          "code_snippet": "Check if input is a valid URL."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Implement caching for web scrape results using a cache node.",
+        "node_id": "Jina.ai Web Scraper Tool",
+        "fix_details": {
+          "add_node": "Cache node",
+          "connection": "Before and after scraping."
+        }
+      }
+    ],
+    "migration_recommendation": "improve_then_migrate",
+    "estimated_improvement_time": "2-4 hours"
+  }
+}

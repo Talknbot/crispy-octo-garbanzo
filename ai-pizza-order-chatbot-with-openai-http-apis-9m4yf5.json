@@ -1,0 +1,425 @@
+{
+  "workflow": {
+    "id": "5Y8QXJ3N67wnmR2R",
+    "meta": {
+      "instanceId": "433fa4b57c582f828a127c9c601af0fc38d9d6424efd30a3ca802a4cc3acd656",
+      "templateCredsSetupCompleted": true
+    },
+    "name": "POC - Chatbot Order by Sheet Data",
+    "tags": [],
+    "nodes": [
+      {
+        "id": "cc9ab139-303f-411a-a7c8-5985d92e3040",
+        "name": "Calculator",
+        "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+        "position": [
+          1460,
+          480
+        ],
+        "parameters": {},
+        "typeVersion": 1
+      },
+      {
+        "id": "97a6d3a8-001c-4c62-84c2-da5b46a286a9",
+        "name": "Chat OpenAI",
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "position": [
+          740,
+          480
+        ],
+        "parameters": {
+          "options": {}
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "XXXXXXXXXX",
+            "name": "OpenAI Credentials"
+          }
+        },
+        "typeVersion": 1
+      },
+      {
+        "id": "1ad05eb6-0f6a-4da7-9d86-871dfa7cbce1",
+        "name": "Window Buffer Memory",
+        "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+        "position": [
+          900,
+          480
+        ],
+        "parameters": {},
+        "typeVersion": 1.2
+      },
+      {
+        "id": "f4883308-3e4a-49b1-82f5-c18dc2121c47",
+        "name": "Get Products",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "position": [
+          1060,
+          480
+        ],
+        "parameters": {
+          "url": "https://n8n.io/webhook/get-products",
+          "toolDescription": "Retrieve detailed information about the product menu."
+        },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "058b1cf5-b8c0-414d-b4c6-e4c016e4d181",
+        "name": "Order Product",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "position": [
+          1200,
+          480
+        ],
+        "parameters": {
+          "url": "https://n8n.io/webhook/order-product",
+          "method": "POST",
+          "sendBody": true,
+          "parametersBody": {
+            "values": [
+              {
+                "name": "message",
+                "value": "={{ $json.chatInput }}",
+                "valueProvider": "fieldValue"
+              }
+            ]
+          },
+          "toolDescription": "Process product orders."
+        },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "6e0b433c-1d8f-4cf8-aa06-cc1b8d51e2d9",
+        "name": "Get Order",
+        "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+        "position": [
+          1320,
+          480
+        ],
+        "parameters": {
+          "url": "https://n8n.io/webhook/get-orders",
+          "toolDescription": "Get the order status."
+        },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "a0ee2e49-52cf-40d8-b108-4357bf562505",
+        "name": "When chat message received",
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "position": [
+          540,
+          160
+        ],
+        "webhookId": "d925cc6e-6dd7-4459-a917-e68d57ab0e2a",
+        "parameters": {
+          "public": true,
+          "options": {},
+          "initialMessages": "Hellooo! \ud83d\udc4b My name is Pizzaro \ud83c\udf55. I'm here to help with your pizza order. How can I assist you?\n\n\ud83d\udce3 INFO: If you\u2019d like to order a pizza, please include your name + pizza type + quantity. Thank you!"
+        },
+        "typeVersion": 1.1
+      },
+      {
+        "id": "81892405-e09c-4452-99b3-f5edbe49b830",
+        "name": "AI Agent",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "position": [
+          780,
+          160
+        ],
+        "parameters": {
+          "text": "={{ $json.chatInput }}",
+          "options": {
+            "systemMessage": "=Your name is Pizzaro, and you are an assistant for handling customer pizza orders.\n\n1. If a customer asks about the menu, provide information on the available products.\n2. If a customer is placing an order, confirm the order details, inform them that the order is being processed, and thank them.\n3. If a customer inquires about their order status, provide the order date, pizza type, and quantity."
+          },
+          "promptType": "define"
+        },
+        "executeOnce": false,
+        "typeVersion": 1.6
+      }
+    ],
+    "active": false,
+    "pinData": {},
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "versionId": "6431e20b-e135-43b2-bbcb-ed9c705d1237",
+    "connections": {
+      "Get Order": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Calculator": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Chat OpenAI": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get Products": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Order Product": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Window Buffer Memory": {
+        "ai_memory": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When chat message received": {
+        "main": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "metadata": {
+      "quality_score": 73.2,
+      "quality_rating": "Fair",
+      "architecture_score": 66.25,
+      "error_handling_score": 52.5,
+      "security_score": 83.75,
+      "performance_score": 82.5,
+      "maintainability_score": 88.75,
+      "category": "AI",
+      "original_source": "csv_import",
+      "csv_score": "7",
+      "extracted_at": "2025-09-27T00:32:08.314Z"
+    }
+  },
+  "metadata": {
+    "original_file": "C:\\Users\\DELL\\n8n-workflow-scraper\\scraped-workflows\\workflows\\AI\\ai-pizza-order-chatbot-with-openai-http-apis-9m4yf5.json",
+    "category": "AI",
+    "category_confidence": 0.32634032634032634,
+    "quality_score": 55.0,
+    "quality_tier": "silver",
+    "evaluated_at": "2025-10-02T02:19:12.677934",
+    "evaluator": "grok-code-fast-1",
+    "cost": 0.6861614999999999,
+    "nodes_count": 8,
+    "batch": 1
+  },
+  "evaluation": {
+    "overall_score": 55.0,
+    "confidence": 0.8,
+    "quality_tier": "silver",
+    "dimensions": {
+      "architecture": {
+        "score": 70,
+        "issues": [
+          "Vertical architecture is appropriate for a linear chatbot flow, but lacks branching for complex scenarios like multiple user intents.",
+          "No explicit error handling or fallback paths in the node connections."
+        ],
+        "strengths": [
+          "Nodes are arranged in a logical sequence starting from trigger to agent and tools.",
+          "Connections follow a clear flow from chat trigger to AI agent and supporting tools."
+        ],
+        "recommendations": [
+          "Consider adding conditional routing nodes for better handling of different user queries.",
+          "Incorporate error handling nodes to manage failures in HTTP requests or AI responses."
+        ]
+      },
+      "error_handling": {
+        "score": 30,
+        "issues": [
+          "No error handling nodes present, such as 'Error Trigger' or 'If' nodes for retries.",
+          "HTTP request tools (Get Products, Order Product, Get Order) lack retry mechanisms or error fallbacks.",
+          "Potential for silent failures in AI agent or OpenAI chat interactions."
+        ],
+        "strengths": [
+          "Basic flow assumes successful execution, which is typical for a POC."
+        ],
+        "recommendations": [
+          "Add 'Error Trigger' nodes after HTTP requests to catch and handle API failures.",
+          "Implement retry logic using 'Loop Over Items' or 'Wait' nodes for transient errors.",
+          "Use 'If' nodes to check response statuses and provide user-friendly error messages."
+        ]
+      },
+      "security": {
+        "score": 50,
+        "issues": [
+          "Credentials for OpenAI and HTTP requests are assumed configured, but no validation mentioned.",
+          "No input validation on user chat messages, potentially allowing injection or malicious inputs.",
+          "HTTP requests to external services (products, orders) may expose sensitive data if not secured."
+        ],
+        "strengths": [
+          "Uses standard Langchain nodes, which typically handle authentication securely if configured."
+        ],
+        "recommendations": [
+          "Add input sanitization using 'Function' nodes to validate and clean user inputs.",
+          "Ensure HTTPS is used for all HTTP requests and validate API endpoints.",
+          "Implement rate limiting or authentication checks in the workflow to prevent abuse."
+        ]
+      },
+      "performance": {
+        "score": 60,
+        "issues": [
+          "No caching implemented for repeated data fetches like product lists.",
+          "AI agent and OpenAI chat may incur latency without optimization.",
+          "Window Buffer Memory is used, but no configuration details for efficiency."
+        ],
+        "strengths": [
+          "Vertical flow minimizes unnecessary parallel processing.",
+          "Langchain tools are generally optimized for performance in N8N."
+        ],
+        "recommendations": [
+          "Add caching for static data like products using 'Set' and 'Get' nodes or external storage.",
+          "Optimize OpenAI model settings (e.g., lower temperature for faster responses).",
+          "Monitor execution times and consider asynchronous processing for non-blocking operations."
+        ]
+      },
+      "maintainability": {
+        "score": 40,
+        "issues": [
+          "Node names are generic (e.g., 'Calculator', 'Get Products'), not descriptive of their role in the workflow.",
+          "No comments or documentation within the workflow.",
+          "Parameters are not detailed, making it hard to understand configurations."
+        ],
+        "strengths": [
+          "Simple structure with few nodes, easy to overview."
+        ],
+        "recommendations": [
+          "Rename nodes to be more descriptive, e.g., 'Product Fetch Tool' instead of 'Get Products'.",
+          "Add workflow comments and node descriptions for clarity.",
+          "Use variables and expressions consistently for better parameterization."
+        ]
+      },
+      "best_practices": {
+        "score": 45,
+        "issues": [
+          "No use of workflow versioning or testing nodes.",
+          "HTTP tools lack headers or authentication best practices details.",
+          "AI agent configuration may not follow Langchain best practices for tool integration."
+        ],
+        "strengths": [
+          "Uses official N8N Langchain nodes, adhering to integration standards."
+        ],
+        "recommendations": [
+          "Follow Langchain documentation for agent setup, ensuring tools are properly chained.",
+          "Add testing workflows or use 'Manual Trigger' for debugging.",
+          "Ensure all nodes have proper error outputs and logging enabled."
+        ]
+      },
+      "scalability": {
+        "score": 50,
+        "issues": [
+          "Vertical architecture may not scale well with increased concurrent users due to sequential processing.",
+          "No load balancing or queuing for high-volume chat interactions.",
+          "Memory buffer may accumulate data, leading to performance degradation over time."
+        ],
+        "strengths": [
+          "Simple design can be scaled by deploying multiple instances."
+        ],
+        "recommendations": [
+          "Consider horizontal scaling with webhooks or queue-based triggers.",
+          "Implement data persistence for memory to handle long conversations.",
+          "Use N8N's execution limits and monitoring to identify bottlenecks."
+        ]
+      },
+      "innovation": {
+        "score": 65,
+        "issues": [
+          "Standard Langchain integration without novel customizations.",
+          "No advanced features like multi-modal inputs or custom AI models."
+        ],
+        "strengths": [
+          "Integrates AI agent with practical tools for ordering, showing innovative use of Langchain in N8N.",
+          "Combines chat, memory, and external APIs creatively for a chatbot POC."
+        ],
+        "recommendations": [
+          "Explore custom tools or fine-tuned models for more personalized responses.",
+          "Add features like sentiment analysis or recommendation engines."
+        ]
+      }
+    },
+    "auto_fix_suggestions": [
+      {
+        "type": "error_handling",
+        "priority": "high",
+        "description": "Add error handling after HTTP request nodes to catch failures and retry.",
+        "node_id": "Get Products",
+        "fix_details": {
+          "action": "Insert 'Error Trigger' node connected to the output of 'Get Products' and add a retry loop."
+        }
+      },
+      {
+        "type": "security",
+        "priority": "medium",
+        "description": "Implement input validation for chat messages to prevent malicious inputs.",
+        "node_id": "When chat message received",
+        "fix_details": {
+          "action": "Add a 'Function' node after the trigger to sanitize and validate input data."
+        }
+      },
+      {
+        "type": "maintainability",
+        "priority": "low",
+        "description": "Rename nodes for better clarity.",
+        "node_id": "Calculator",
+        "fix_details": {
+          "action": "Change node name to 'Math Calculation Tool' and add a description."
+        }
+      },
+      {
+        "type": "performance",
+        "priority": "medium",
+        "description": "Add caching for product data to reduce API calls.",
+        "node_id": "Get Products",
+        "fix_details": {
+          "action": "Use 'Set' node to cache results and 'Get' node to retrieve cached data."
+        }
+      }
+    ],
+    "migration_recommendation": "improve_then_migrate",
+    "estimated_improvement_time": "1-2 weeks"
+  }
+}
